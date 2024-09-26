@@ -4,6 +4,6 @@ public class Sample {
     int other;
 
     public Sample() {
-        other = 4;
+        other = 1;
     }
 }
