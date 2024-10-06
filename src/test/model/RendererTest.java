@@ -11,7 +11,7 @@ public class RendererTest {
 
     @BeforeEach
     void runBefore(){
-        configA = new Configuration("someConfig", 5, 7, 7, 0, 0, 1);
+        configA = new Configuration("someConfig", 10, 5, 3, -2, 1, -1, -1, 100);
         renderObj = new Renderer(configA);
     }
 
@@ -19,34 +19,40 @@ public class RendererTest {
     void testConstructor(){
         assertEquals("someConfig", renderObj.configName);
         assertEquals(10, renderObj.iteration);
-        assertEquals(1980, renderObj.renderWidth);
-        assertEquals(1080, renderObj.renderHeight);
-        assertEquals(0.123, renderObj.XCoord);
-        assertEquals(0.456, renderObj.YCoord);
+        assertEquals(5, renderObj.renderWidth);
+        assertEquals(3, renderObj.renderHeight);
+        assertEquals(-2, renderObj.real_start);
+        assertEquals(1, renderObj.real_end);
+        assertEquals(-1, renderObj.imag_start);
+        assertEquals(1, renderObj.imag_end);
         assertEquals(100, renderObj.zoomScale);
     }
 
     @Test
     void testRenderSet(){
-        renderObj.renderSet();
-        //Boolean[][] setTest = renderObj.getSet();
+        //NOTE: this test should fail as it is right now...
 
-        Boolean[][] setTest = {
-            {true, true, true, true, true},
-            {false, false, false, false, false},
-            {true, true, true, true, true},
-            {false, false, false, false, false},
-            {true, true, true, true, true}
-        };
+        renderObj.renderSet();
+        Boolean[][] setTest = renderObj.getSet();
 
         Boolean[][] setReference = {
-            {true, true, true, true, true},
-            {false, true, false, false, false},
-            {true, true, true, true, true},
-            {false, false, false, false, false},
-            {true, true, true, true, true}
-        };
+            //this set reference has errors in it... Idk if it's worth making such a test....
 
+
+            // {true,true,true,true,true,true,true,true,false,true,true,true,true,true},
+            // {true,true,true,true,true,true,true,true,false,true,true,true,true},
+            // {true,true,true,true,true,true,true,false,false,false,true,true,true},
+            // {true,true,true,true,true,true,false,false,false,false,false,true,true},
+            // {true,true,true,true,false,false,false,false,false,false,false,true,true},
+            // {false,false,false,false,false,false,false,false,false,false,true,true,true},
+            // {true,true,true,true,false,false,false,false,false,false,false,true,true},
+            // {true,true,true,true,true,true,false,false,false,false,false,true,true},
+            // {true,true,true,true,true,true,true,true,false,false,true,true,true},
+            // {true,true,true,true,true,true,true,true,false,true,true,true,true},
+            {true, true, true, true, true},
+            {true, true, true, false, false},
+            {true, true, true, false, false},
+        };
 
         //do for loops to check against a correct boolean grid structure...
         for(int h = 0; h < renderObj.renderHeight; h++){

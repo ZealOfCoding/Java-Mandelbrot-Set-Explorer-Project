@@ -6,8 +6,10 @@ public class Configuration {
     protected int iteration;
     protected int renderWidth;
     protected int renderHeight;
-    protected double XCoord; // X coordinate for where the center of the image will be on the set
-    protected double YCoord; // Y coordinate for where the center of the image will be on the set
+    protected double real_start;// start of the real axis
+    protected double real_end;// end of the real axis
+    protected double imag_start;// start of imaginary axis
+    protected double imag_end;// end of imginary axis
     protected double zoomScale; 
 
     //EFFECTS: sets the following parameters.
@@ -15,43 +17,65 @@ public class Configuration {
                         int iteration,
                         int renderWidth,
                         int renderHeight,
-                        double XCoord,
-                        double YCoord,
+                        double real_start,
+                        double real_end,
+                        double imag_start,
+                        double imag_end,
                         double zoomScale) {
-        //this.configitem = configItem....
+
+        this.configName = configName;
+        this.iteration = iteration;
+        this.renderWidth = renderWidth;
+        this.renderHeight = renderHeight;
+        this.real_start = real_start;
+        this.real_end = real_end;
+        this.imag_start = imag_start;
+        this.imag_end = imag_end;
+        this.zoomScale = zoomScale;
+    }
+
+    public Configuration(){
+
     }
 
     //name must be under 20 characters...
     public String getConfigName(){
-        return "";//TODO
+        return this.configName;
     }
 
     //iteration must be under (idk, figure out what the maximum iterations should be. Idk, 10000?)
     //EFFECTS: returns the iteration
     public int getIteration(){
-        return 0;//TODO
+        return this.iteration;
     }
 
     //if width is greater than 1920, either give out error message or cap it at 1920
     public int getRenderWidth(){
-        return 0;//TODO
+        return this.renderWidth;
     }
 
     //if width is greater than 1080, either give out error message or cap it at 1080
     public int getRenderHeight(){
-        return 0;//TODO
+        return this.renderHeight;
+    }
+    public double getRealStart(){
+        return this.real_start;
     }
 
-    public double getXCoord(){
-        return 0.1;
+    public double getRealEnd(){
+        return this.real_end;
     }
 
-    public double getYCoord(){
-        return 0.1;
+    public double getImagStart(){
+        return this.imag_start;
+    }
+
+    public double getImagEnd(){
+        return this.imag_end;
     }
 
     public double getZoomScale(){
-        return 0.1;//TODO
+        return this.zoomScale;
     }
 
 
