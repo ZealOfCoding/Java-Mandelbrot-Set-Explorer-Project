@@ -1,3 +1,5 @@
+//NOTE: this class might not be necessary, since it's all done in the console(for now..) Could be used in GUI phase...
+
 package ui;
 
 public class InterfacePanel {
@@ -7,9 +9,11 @@ public class InterfacePanel {
 
     //TODO: enter iteration
 
-    //TODO: enter render height
+    //TODO: enter render height(will be same as width)
     
-    //TODO: enter render width
+    //TODO: enter render width(will be same as height)
+
+    //TODO: 
 
     //TODO: enter zoom scale
 }

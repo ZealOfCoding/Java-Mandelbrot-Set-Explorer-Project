@@ -7,68 +7,74 @@ package model;
  * uses them to generate the set. It saves the data of the set 
  * into a 2D boolean array that are the dimensions of how it 
  * will be printed. 
- * 
  */
-public class Renderer extends Configuration{
-    Boolean[][] setData;//remember: the indexes going towards the right are higher order dimensions
+public class Renderer extends Configuration {
+    boolean[][] setData;//remember: the indexes going towards the right are higher order dimensions
 
-    //REQUIRES: Configuration object
-    //EFFECTS: sets the parameters of the Renderer
-    public Renderer(Configuration config){
+    /*
+     * REQUIRES: Configuration object
+     * EFFECTS: sets the parameters of the Renderer
+     */
+    public Renderer(Configuration config) {
         super();
-        //TODO: 
-        //I think this could probably inherit the behavior of the Configuartion class....
-        //I feel like i'm copying and pasting a bunch of code here...
         this.configName = config.getConfigName();
         this.iteration = config.getIteration();
         this.renderWidth = config.getRenderWidth();
         this.renderHeight = config.getRenderHeight();
-        this.real_start = config.getRealStart();
-        this.real_end = config.getRealEnd();
-        this.imag_start = config.getImagStart();
-        this.imag_end = config.getImagEnd();
+        this.realStart = config.getRealStart();
+        this.realEnd = config.getRealEnd();
+        this.imagStart = config.getImagStart();
+        this.imagEnd = config.getImagEnd();
         this.zoomScale = config.getZoomScale();
-        setData = new Boolean[config.renderHeight][config.renderWidth];
+        setData = new boolean[config.renderHeight][config.renderWidth];
     }
 
-    //EFFECTS: default render, renders as soon as program is first open.
-    public Renderer(){
+    /*
+     * EFFECTS: default render, renders as soon as program is first open.
+     */
+    public Renderer() {
+        int height = 48;//TODO: remember to change this back to something appropriate like 600 in final phase
+        int width = 72;//TODO: remember to change this back to something appropriate like 900 in final phase
+
+        this.configName = "default";//irrelevant default...
         this.iteration = 100;
-        this.renderWidth = 900;
-        this.renderHeight = 600;
-        this.real_start = -2;
-        this.real_end = 1;
-        this.imag_start = -1;
-        this.imag_end = 1;
+        this.renderWidth = width;
+        this.renderHeight = height;
+        this.realStart = -2;
+        this.realEnd = 1;
+        this.imagStart = -1;
+        this.imagEnd = 1;
+        this.zoomScale = 1;//irrelevant default
+        setData = new boolean[height][width];
     }
 
-    //REQUIRES: valid data from a Configuration object
-    //MODIFIES: setData
-    //EFFECTS: 
-/*  Generates a 2D boolean array, representing the
-    graph of the mandelbrot set on a complex plane. For each 
-    point on the complex plane(or element of the 2D boolean array), 
-    it plugs in it's coordinates
-    into the recursive function of z = z^2 + c based
-    on the number of iterations. If the value of c
-    ever explodes off to "infinity"(this can be arbitrarily defined, usually 4),
-    then that point is not in the set, and is set to false. If it 
-    stays under "infinity", that point is in the set, and is set to 
-    true.
-
-
-    Significant help of math from the following video source:
-    https://www.youtube.com/watch?v=QUfFcg0c-9E&list=PLmGXvJnxPKXkUFS6yTp0zEyH1QFjbgjHY&index=2
-
-*/
-
-    //@SuppressWarnings
+    /*
+     * REQUIRES: valid data from a Configuration object
+     * MODIFIES: setData
+     * EFFECTS: 
+     *   Generates a 2D boolean array, representing the
+     *   graph of the mandelbrot set on a complex plane. For each 
+     *  point on the complex plane(or element of the 2D boolean array), 
+     *   it plugs in it's coordinates
+     *   into the recursive function of z = z^2 + c based
+     *   on the number of iterations. If the value of c
+     *   ever explodes off to "infinity"(this can be arbitrarily defined, usually 4),
+     *   then that point is not in the set, and is set to false. If it 
+     *   stays under "infinity", that point is in the set, and is set to 
+     *   true.
+     *
+     *
+     *   Significant help of math from the following video source:
+     *   https://www.youtube.com/watch?v=QUfFcg0c-9E&list=PLmGXvJnxPKXkUFS6yTp0zEyH1QFjbgjHY&index=2
+     *
+     */
     //Use that supress warning, I have like 50 lines of code here...
-    public void renderSet(){
-        double imag_c; //picked based on the pixel currently
-        double real_c;
-        double imag_z; // starts at 0 & changes every time an iteration occurs
-        double real_z;
+    @SuppressWarnings("methodlength")
+    public void renderSet() {
+        double imagC; // picked based on the pixel currently
+        double realC;
+        double imagZ; // starts at 0 & changes every time an iteration occurs
+        double realZ;
 
         //outlines the range of the complex plane to be used
         /*NOTE: current aspect ratio works for image of 3:2. 
@@ -79,26 +85,26 @@ public class Renderer extends Configuration{
         // double imag_start = -1;
         // double imag_end = 1;
 
-        for(int h = 0; h < renderHeight; h++){
-            for(int w = 0; w < renderWidth; w++){
+        for (int h = 0; h < renderHeight; h++) {
+            for (int w = 0; w < renderWidth; w++) {
                 //convert from pixel coordinate to complex plane coordinate
-                real_c = real_start + (1.0 * w / renderWidth) * (real_end - real_start);
-                imag_c = imag_start + (1.0 * h / renderHeight) * (imag_end - imag_start);
-                real_z = 0;
-                imag_z = 0;
+                realC = realStart + (1.0 * w / renderWidth) * (realEnd - realStart);
+                imagC = imagStart + (1.0 * h / renderHeight) * (imagEnd - imagStart);
+                realZ = 0;
+                imagZ = 0;
 
                 int iter = 0;
-                while (iter < iteration){
+                while (iter < iteration) {
                     //iterates Z=Z^2 + c
                     //NOTE: reason for making temp variable is to ensure that both parts of
                     //the seperated equation get the same value of real_z. 
-                    double real_temp = real_z*real_z - imag_z*imag_z + real_c;
-                    double imag_temp = 2*real_z*imag_z + imag_c;
-                    real_z = real_temp;
-                    imag_z = imag_temp;
+                    double realTemp = (realZ * realZ) - (imagZ * imagZ) + realC;
+                    double imagTemp = 2 * realZ * imagZ + imagC;
+                    realZ = realTemp;
+                    imagZ = imagTemp;
     
                     //checks if |Z|^2 > 4, if so, it stops iterating the equation
-                    if((real_z*real_z + imag_z*imag_z) > 4){
+                    if (((realZ * realZ) + (imagZ * imagZ)) > 4) {
                         break;
                     }
                     iter++;
@@ -109,7 +115,7 @@ public class Renderer extends Configuration{
                  * to a color value... Or just do a simple greyscale mapping...
                  */
                 //If the iteration count stays under the iteration limit, the point is in the set.
-                if(iter < iteration){
+                if (iter < iteration) {
                     setData[h][w] = true;
                 //Otherwise, it is out of the set.    
                 } else {
@@ -119,6 +125,14 @@ public class Renderer extends Configuration{
         }
     }
 
+    /*
+     * REQUIRES: setData
+     * EFFECTS: returns the setData pointer
+     */
+    public boolean[][] getSet() {
+        return setData;
+    }
+
     //P.S, I may or may not implement this...
     //EFFECTS:
     /*
@@ -126,13 +140,26 @@ public class Renderer extends Configuration{
      * on the complex plane, which are what's actually used in the recursive function.
      * 
      */
-    public void coordinateToValue(){
+    // public void coordinateToValue(){
 
+    // }
+
+    public int getWidth() {
+        return this.renderWidth;
     }
 
-    //REQUIRES: setData
-    //EFFECTS: returns the setData pointer
-    public Boolean[][] getSet(){
-        return setData;
+    public int getHeight() {
+        return this.renderHeight;
+    }
+
+    /*
+     * REQUIRES: A valid copy of all the configuration values
+     * EFFECTS: returns the current state of configuration that was just used by the renderer
+     *
+     *   //@SuppressWarnings("parameterlength") Can I use something like this?
+     */
+    public Configuration getCurrentConfiguration() {
+        Configuration currentState = new Configuration(configName, iteration, renderWidth, renderHeight, realStart, realEnd, imagStart, imagEnd, zoomScale);
+        return currentState;
     }
 }

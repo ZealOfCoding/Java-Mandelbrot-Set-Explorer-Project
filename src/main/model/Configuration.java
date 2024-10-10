@@ -4,80 +4,84 @@ package model;
 public class Configuration {
     protected String configName;
     protected int iteration;
-    protected int renderWidth;
+    protected int renderWidth; 
     protected int renderHeight;
-    protected double real_start;// start of the real axis
-    protected double real_end;// end of the real axis
-    protected double imag_start;// start of imaginary axis
-    protected double imag_end;// end of imginary axis
-    protected double zoomScale; 
-
-    //EFFECTS: sets the following parameters.
+    protected double realStart;
+    protected double realEnd;
+    protected double imagStart;
+    protected double imagEnd;
+    protected double zoomScale; // TODO: i'll probably depricate this...
+    
+    /* 
+     * REQUIRES: configName has non-zero length
+     * EFFECTS: sets the following parameters.
+     */
     public Configuration(String configName,
                         int iteration,
                         int renderWidth,
                         int renderHeight,
-                        double real_start,
-                        double real_end,
-                        double imag_start,
-                        double imag_end,
+                        double realStart,
+                        double realEnd,
+                        double imagStart,
+                        double imagEnd,
                         double zoomScale) {
 
         this.configName = configName;
         this.iteration = iteration;
         this.renderWidth = renderWidth;
         this.renderHeight = renderHeight;
-        this.real_start = real_start;
-        this.real_end = real_end;
-        this.imag_start = imag_start;
-        this.imag_end = imag_end;
+        this.realStart = realStart;
+        this.realEnd = realEnd;
+        this.imagStart = imagStart;
+        this.imagEnd = imagEnd;
         this.zoomScale = zoomScale;
     }
 
-    public Configuration(){
+    /*
+     *EFFECTS: serves as a blank constructor
+     */
+    public Configuration() {
 
     }
 
     //name must be under 20 characters...
-    public String getConfigName(){
+    public String getConfigName() {
         return this.configName;
     }
 
     //iteration must be under (idk, figure out what the maximum iterations should be. Idk, 10000?)
     //EFFECTS: returns the iteration
-    public int getIteration(){
+    public int getIteration() {
         return this.iteration;
     }
 
     //if width is greater than 1920, either give out error message or cap it at 1920
-    public int getRenderWidth(){
+    public int getRenderWidth() {
         return this.renderWidth;
     }
 
     //if width is greater than 1080, either give out error message or cap it at 1080
-    public int getRenderHeight(){
+    public int getRenderHeight() {
         return this.renderHeight;
     }
-    public double getRealStart(){
-        return this.real_start;
+    
+    public double getRealStart() {
+        return this.realStart;
     }
 
-    public double getRealEnd(){
-        return this.real_end;
+    public double getRealEnd() {
+        return this.realEnd;
     }
 
-    public double getImagStart(){
-        return this.imag_start;
+    public double getImagStart() {
+        return this.imagStart;
     }
 
-    public double getImagEnd(){
-        return this.imag_end;
+    public double getImagEnd() {
+        return this.imagEnd;
     }
 
-    public double getZoomScale(){
+    public double getZoomScale() {
         return this.zoomScale;
     }
-
-
-
 }
