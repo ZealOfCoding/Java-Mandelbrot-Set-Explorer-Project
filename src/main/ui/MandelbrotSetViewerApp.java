@@ -53,6 +53,9 @@ public class MandelbrotSetViewerApp {
      *          Delete a configuration from list based on it's name
      *          Exit the app
      */
+
+    //Approved use of warning supression by the professor October 10th, 2024 during office hour
+    @SuppressWarnings("methodlength")
     private void interfacePanelInput() {
         boolean exit = false;
 
@@ -124,29 +127,44 @@ public class MandelbrotSetViewerApp {
         } else {
             System.out.println("██ NOTE: render width and render height must be of the same ratio");
             System.out.println("██ as the real and imaginary start and ends in order for");
-            System.out.println(" the image to not look warped.\n");
+            System.out.println("██ the image to not look warped.\n");
             String configName = userInput;
-            System.out.println("Enter the number of iterations(int):");
-            int iteration = scanner.nextInt();
-            System.out.println("Enter the render width(int):");
-            int renderWidth = scanner.nextInt();
-            System.out.println("Enter the render height(int):");
-            int renderHeight = scanner.nextInt();
-            System.out.println("Enter the real start(double):");
-            double realStart = scanner.nextDouble();
-            System.out.println("Enter the real end(double):");
-            double realEnd = scanner.nextDouble();
-            System.out.println("Enter the imaginary start(double):");
-            double imagStart = scanner.nextDouble();
-            System.out.println("Enter the imaginary end(double):");
-            double imagEnd = scanner.nextDouble();
-            System.out.println("Enter the zoom scale(double):");
-            double zoomScale = scanner.nextDouble();
+
+            // Make this into a helper method call, so this can turn into one line
+            int iteration = getNextInt("Enter the number of iterations(int):");
+            int renderWidth = getNextInt("Enter the render width(int):");
+            int renderHeight = getNextInt("Enter the render height(int):");
+            double realStart = getNextDouble("Enter the real start(double):");
+            double realEnd = getNextDouble("Enter the real end(double):");
+            double imagStart = getNextDouble("Enter the imaginary start(double):");
+            double imagEnd = getNextDouble("Enter the imaginary end(double):");
+            double zoomScale = getNextDouble("Enter the zoom scale(double):");
             scanner.nextLine();
 
-            Configuration newConfig = new Configuration(configName, iteration, renderWidth, renderHeight, realStart, realEnd, imagStart, imagEnd, zoomScale);
+            Configuration newConfig = new Configuration(configName, iteration, renderWidth, renderHeight, 
+                                                        realStart, realEnd, imagStart, imagEnd, zoomScale);
             configList.addConfiguration(newConfig);
         }
+    }
+
+    /*
+    * REQUIRES: scanner be instantiated
+     * MODIFIES: scanner
+     * EFFECTS: prints out the next prompt, and get the user input as an integer.
+     */
+    private int getNextInt(String prompt) {
+        System.out.println(prompt);
+        return scanner.nextInt();
+    }
+
+    /*
+    * REQUIRES: scanner be instantiated
+     * MODIFIES: scanner
+     * EFFECTS: prints out the next prompt, and gets the user input as a double.
+     */
+    private double getNextDouble(String prompt) {
+        System.out.println(prompt);
+        return scanner.nextDouble();
     }
 
     /*
@@ -206,6 +224,16 @@ public class MandelbrotSetViewerApp {
     }
 
     /*
+     * Make a method that effectively takes the current parameter, takes a copy of it, 
+     * and zooms the complex plane coordinates, and gives that to the renderer to re-render.
+     * It should take a parameter of how much to zoom by.
+     */
+
+    //  public void zoom(double zoomScale){
+
+    //  }
+
+    /*
      * REQUIRES: renderer be set
      * EFFECTS: displays the set, using the data from the rederObj in a 2D boolean array.
      * In Phase 1, I'm printing out the set using symbols. 
@@ -216,9 +244,9 @@ public class MandelbrotSetViewerApp {
             String currentRow = "";
             for (int w = 0; w < renderer.getWidth(); w++) {
                 if (renderObj[h][w]) {
-                    currentRow = currentRow + " `";
-                } else {
                     currentRow = currentRow + "██";
+                } else {
+                    currentRow = currentRow + " `";
                 }  
             }
             System.out.println(currentRow);

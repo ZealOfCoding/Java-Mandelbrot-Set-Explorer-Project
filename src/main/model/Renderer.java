@@ -68,8 +68,6 @@ public class Renderer extends Configuration {
      *   https://www.youtube.com/watch?v=QUfFcg0c-9E&list=PLmGXvJnxPKXkUFS6yTp0zEyH1QFjbgjHY&index=2
      *
      */
-    //Use that supress warning, I have like 50 lines of code here...
-    @SuppressWarnings("methodlength")
     public void renderSet() {
         double imagC; // picked based on the pixel currently
         double realC;
@@ -90,39 +88,56 @@ public class Renderer extends Configuration {
                 //convert from pixel coordinate to complex plane coordinate
                 realC = realStart + (1.0 * w / renderWidth) * (realEnd - realStart);
                 imagC = imagStart + (1.0 * h / renderHeight) * (imagEnd - imagStart);
+                
                 realZ = 0;
                 imagZ = 0;
-
-                int iter = 0;
-                while (iter < iteration) {
-                    //iterates Z=Z^2 + c
-                    //NOTE: reason for making temp variable is to ensure that both parts of
-                    //the seperated equation get the same value of real_z. 
-                    double realTemp = (realZ * realZ) - (imagZ * imagZ) + realC;
-                    double imagTemp = 2 * realZ * imagZ + imagC;
-                    realZ = realTemp;
-                    imagZ = imagTemp;
-    
-                    //checks if |Z|^2 > 4, if so, it stops iterating the equation
-                    if (((realZ * realZ) + (imagZ * imagZ)) > 4) {
-                        break;
-                    }
-                    iter++;
-                }
 
                 /* Future improvement:
                  * Here, you could track the number of iterations, and map those
                  * to a color value... Or just do a simple greyscale mapping...
                  */
                 //If the iteration count stays under the iteration limit, the point is in the set.
-                if (iter < iteration) {
-                    setData[h][w] = true;
-                //Otherwise, it is out of the set.    
-                } else {
-                    setData[h][w] = false;
-                }
+                setData[h][w] = isInSet(realC, imagC, realZ, imagZ);
             }
         }
+    }
+
+    /* 
+     * REQUIRES: realC, imagC, realZ, imagZ
+     * EFFECTS: checks whether the given point on the complex plane is in the set.
+     * 
+     * Future improvement: make the function return an integer; the number of times it took
+     * for the point to reach the iteration limit. 
+     */
+    private boolean isInSet(double realC, double imagC, double realZ, double imagZ) {
+        int iter = 0;
+
+        while (iter < iteration) {
+            /*
+             * iterates Z=Z^2 + c
+             * NOTE: reason for making temp variables is to ensure that both parts of
+             * the seperated equation get the same value of real_z. 
+             */
+
+            double realTemp = (realZ * realZ) - (imagZ * imagZ) + realC;
+            double imagTemp = 2 * realZ * imagZ + imagC;
+            realZ = realTemp;
+            imagZ = imagTemp;
+
+            /*
+             * checks if |Z|^2 > 4, if so, the point is not in the set, and stops iterating the equation.
+             * 
+             * In future revisions, the number of iterations that it took to be greater than 4(or in math 
+             * terms, for the complex number orbital to escape) before reaching the iteration limit could be
+             * tracked, and a color map could be applied to the number of iterations a given point took.
+             */
+            if (((realZ * realZ) + (imagZ * imagZ)) > 4) {
+                return false;
+            }
+            iter++;
+        }
+        //if the loop finishes after iteration times, then the point is considered in the set.
+        return true;
     }
 
     /*
@@ -159,7 +174,8 @@ public class Renderer extends Configuration {
      *   //@SuppressWarnings("parameterlength") Can I use something like this?
      */
     public Configuration getCurrentConfiguration() {
-        Configuration currentState = new Configuration(configName, iteration, renderWidth, renderHeight, realStart, realEnd, imagStart, imagEnd, zoomScale);
+        Configuration currentState = new Configuration(configName, iteration, renderWidth, renderHeight, 
+                                                       realStart, realEnd, imagStart, imagEnd, zoomScale);
         return currentState;
     }
 }
