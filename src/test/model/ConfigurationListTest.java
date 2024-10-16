@@ -77,9 +77,15 @@ public class ConfigurationListTest {
         assertFalse(tester.removeConfiguration("nonExistentConfig"));
     }
 
-    // @Test
-    // public void testGetConfigNames(){
-    //     //TODO: implement this test, where it retrieves the config name from a list. Will probably be needed in the GUI version...
-    //     assertEquals();
-    // }
+    @Test
+    public void testGetConfigNames(){
+        //TODO: implement this test, where it retrieves the config name from a list. Will probably be needed in the GUI version...
+        tester.addConfiguration(config1);
+        tester.addConfiguration(config2);
+
+        String[] configNames = tester.getConfigNames();
+
+        assertEquals(configNames[0], config1.getConfigName());
+        assertEquals(configNames[1], config2.getConfigName());
+    }
 }
