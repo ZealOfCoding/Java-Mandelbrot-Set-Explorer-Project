@@ -36,6 +36,8 @@ set is generated. It will also have the ability to save the current parameters, 
 - Save a copy of the parameters that the user has currently inputed
 
 - Load a copy of parameters from a list(either user created or presets) and render an image. 
+
+- 
 ________________________________________________________________________________
 
 

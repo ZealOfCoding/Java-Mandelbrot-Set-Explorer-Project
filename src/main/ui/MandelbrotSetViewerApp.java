@@ -66,6 +66,8 @@ public class MandelbrotSetViewerApp {
                 case "m":
                     makeNewConfiguration();
                     break;
+                case "l":
+                    listConfigurations();
                 case "s":
                     saveCurrentConfiguration();
                     break;
@@ -84,6 +86,13 @@ public class MandelbrotSetViewerApp {
         }
     }
     
+    private void listConfigurations() {
+        System.out.println("Current List of Configurations:");
+        while () {
+            
+        }
+    }
+
     /*
      * EFFECTS: displays the menu to the console
      */

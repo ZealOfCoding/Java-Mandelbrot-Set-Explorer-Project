@@ -85,7 +85,10 @@ public class ConfigurationList {
         return configurationsList.size();
     }
 
-    // public String[] getConfigNames(){
-    //     return null;
-    // }
+    /*
+     * EFFECTS: returns a String[] list of configNames currently
+     */
+    public String[] getConfigNames(){
+        return null;
+    }
 }
