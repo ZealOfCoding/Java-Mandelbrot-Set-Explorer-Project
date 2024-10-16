@@ -88,9 +88,9 @@ public class MandelbrotSetViewerApp {
     
     private void listConfigurations() {
         System.out.println("Current List of Configurations:");
-        while () {
-            
-        }
+        // while () {
+
+        // }
     }
 
     /*

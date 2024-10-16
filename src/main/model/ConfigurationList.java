@@ -89,6 +89,11 @@ public class ConfigurationList {
      * EFFECTS: returns a String[] list of configNames currently
      */
     public String[] getConfigNames(){
-        return null;
+        String[] configNames = new String[configurationsList.size()];
+        for (int i = 0; i < configurationsList.size(); i++) {
+            configNames[i] = configurationsList.get(i).getConfigName();
+        }
+        return configNames;
+
     }
 }

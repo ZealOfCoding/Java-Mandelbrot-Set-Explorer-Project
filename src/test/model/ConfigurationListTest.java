@@ -79,7 +79,6 @@ public class ConfigurationListTest {
 
     @Test
     public void testGetConfigNames(){
-        //TODO: implement this test, where it retrieves the config name from a list. Will probably be needed in the GUI version...
         tester.addConfiguration(config1);
         tester.addConfiguration(config2);
 
