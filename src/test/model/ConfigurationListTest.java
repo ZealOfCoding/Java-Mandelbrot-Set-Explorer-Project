@@ -11,26 +11,26 @@ public class ConfigurationListTest {
     Configuration config2;
 
     @BeforeEach
-    void runBefore(){
+    void runBefore() {
         tester = new ConfigurationList();
         config1 = new Configuration("someConfig", 10, 1920, 1080, 0.123, 0.456, 0.789, 0.123, 100);
         config2 = new Configuration("anotherConfig", 20, 1080, 720, 0.111, 0.222, 0.333, 0.444, 200);
     }
 
     @Test
-    void testConstructor(){
+    void testConstructor() {
         assertEquals(0, tester.getSize());//tests that the arrayList was initialized, and that it has a size of 0
     }
 
     @Test
-    void testDoesConfigExist(){
+    void testDoesConfigExist() {
         tester.addConfiguration(config1);
         assertFalse(tester.doesConfigExist("nonExistentConfig"));
         assertTrue(tester.doesConfigExist("someConfig"));
     }
 
     @Test
-    public void testAddConfiguration(){
+    public void testAddConfiguration() {
         tester.addConfiguration(config1);
 
         assertNotNull(tester.getConfiguration("someConfig"));
@@ -48,7 +48,7 @@ public class ConfigurationListTest {
     }
 
     @Test
-    public void testAddMultipleConfigurations(){
+    public void testAddMultipleConfigurations() {
         testAddConfiguration();
         tester.addConfiguration(config2);
         assertNotNull(tester.getConfiguration("anotherConfig"));
@@ -65,7 +65,7 @@ public class ConfigurationListTest {
     }
 
     @Test
-    public void testRemoveConfiguration(){
+    public void testRemoveConfiguration() {
         tester.addConfiguration(config1);
         tester.addConfiguration(config2);
 
@@ -78,7 +78,7 @@ public class ConfigurationListTest {
     }
 
     @Test
-    public void testGetConfigNames(){
+    public void testGetConfigNames() {
         tester.addConfiguration(config1);
         tester.addConfiguration(config2);
 

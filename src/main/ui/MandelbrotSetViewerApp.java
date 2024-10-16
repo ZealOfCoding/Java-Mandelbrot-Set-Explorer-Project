@@ -68,6 +68,7 @@ public class MandelbrotSetViewerApp {
                     break;
                 case "l":
                     listConfigurations();
+                    break;
                 case "s":
                     saveCurrentConfiguration();
                     break;
@@ -86,12 +87,6 @@ public class MandelbrotSetViewerApp {
         }
     }
     
-    private void listConfigurations() {
-        System.out.println("Current List of Configurations:");
-        // while () {
-
-        // }
-    }
 
     /*
      * EFFECTS: displays the menu to the console
@@ -99,6 +94,7 @@ public class MandelbrotSetViewerApp {
     private void displayMenu() {
         System.out.println("-------------------------------------------------------------------------");
         System.out.println("m: make     a new configuration.");
+        System.out.println("l: list     out all current configurations.");
         System.out.println("s: save     current state of render and make it into a configuration.");
         System.out.println("g: generate from an existing configuration.");
         System.out.println("d: delete   an existing configuration.");
@@ -157,6 +153,24 @@ public class MandelbrotSetViewerApp {
     }
 
     /*
+     * REQUIRES: the list of configurations exists.
+     * EFFECTS: Lists the configurations to the user.
+     */
+    private void listConfigurations() {
+        System.out.println("Current List of Configurations:");
+        System.out.println("-------------------------------");
+        String[] configNames = configList.getConfigNames();
+         
+        if (configNames.length == 0) {
+            System.out.println("No configurations.");
+        }
+
+        for (String name : configNames) {
+            System.out.println("-> " + name);
+        }
+    }
+
+    /*
     * REQUIRES: scanner be instantiated
      * MODIFIES: scanner
      * EFFECTS: prints out the next prompt, and get the user input as an integer.
@@ -196,6 +210,7 @@ public class MandelbrotSetViewerApp {
      * EFFECTS: finds the configuration name, if it exists, and generates the set from that configuration.
      */
     private void generateFromExistingConfiguration() {
+
         System.out.println("Enter configuration name:");
         userInput = scanner.nextLine();
 
