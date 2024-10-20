@@ -33,11 +33,15 @@ set is generated. It will also have the ability to save the current parameters, 
 
 - Render an image of the set in a window
 
-- Save a copy of the parameters that the user has currently inputed
+- Save a copy of the parameters that the user has currently inputed into a configuration.
+- Save the list of configurations that have been created by the user in the current session to a file. When the user 
+    closes the program, if there are configurations that have been currently created in the session, the
+    program will ask the user if they want to save the current configurations in a file. If not, the configurations will be lost. 
 
 - Load a copy of parameters from a list(either user created or presets) and render an image. 
+- Load previous configurations from a previous session by prompting the user first when they open the program, if they 
+    so choose. Otherwise, the program will just load up a default configuration.
 
-- 
 ________________________________________________________________________________
 
 
