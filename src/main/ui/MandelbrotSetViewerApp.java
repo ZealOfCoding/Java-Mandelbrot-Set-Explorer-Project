@@ -3,6 +3,11 @@ package ui;
 import model.Configuration;
 import model.ConfigurationList;
 import model.Renderer;
+import persistance.JsonReader;
+import persistance.JsonWriter;
+
+import java.io.*;
+
 import java.util.Scanner;
 
 /*
@@ -40,7 +45,6 @@ public class MandelbrotSetViewerApp {
         System.out.println("Welcome to the interactive Mandelbrot Set viewer App. ");
         System.out.println("Please select one of the following options:");
 
-        // make a while loop that keeps asking for another input!!
         interfacePanelInput();
     }
 
@@ -78,6 +82,10 @@ public class MandelbrotSetViewerApp {
                 case "d":
                     deleteExistingConfiguration();
                     break;
+                case "S":
+                    saveWorkspace();
+                case "L":
+                    loadWorkspace();
                 case "e":
                     exit = true;
                     break;
@@ -87,7 +95,6 @@ public class MandelbrotSetViewerApp {
         }
     }
     
-
     /*
      * EFFECTS: displays the menu to the console
      */
@@ -98,6 +105,8 @@ public class MandelbrotSetViewerApp {
         System.out.println("s: save     current state of render and make it into a configuration.");
         System.out.println("g: generate from an existing configuration.");
         System.out.println("d: delete   an existing configuration.");
+        System.out.println("S: Save     all configurations in workspace to a file.");
+        System.out.println("L: Load     the previously saved list of configurations and settings used.");
         System.out.println("e: exit     the app.");
         System.out.println("-------------------------------------------------------------------------");
 
@@ -247,6 +256,38 @@ public class MandelbrotSetViewerApp {
         System.out.println("Invalid command. Try again.");
     }
 
+    /*
+     * REQUIRES: 
+     * MODIFIES: 
+     * EFFECTS: Saves the current state of the program, containing the complete
+     * configurations list into a json file.
+     * 
+     * Referred to the demo of json the following github repository:
+     * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+     */
+    private void saveWorkspace() {
+        JsonWriter jsonWriter = new JsonWriter("temp");
+        try {
+
+        }
+
+        catch(FileNotFoundException e) {
+
+        }
+    }
+
+    /* 
+     * REQUIRES:
+     * MODIFIES: this
+     * EFFECTS: Loads the configurations list in the saved json file 
+     * into the workspace
+     * 
+     * Referred to the demo of json the following github repository:
+     * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+     */
+    private void loadWorkspace() {
+        JsonReader jsonReader = new JsonReader("temp");
+    }
     /*
      * Make a method that effectively takes the current parameter, takes a copy of it, 
      * and zooms the complex plane coordinates, and gives that to the renderer to re-render.

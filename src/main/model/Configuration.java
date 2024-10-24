@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 /*Represents a configuration of values of how to generate the set. */
 public class Configuration {
     protected String configName;
@@ -83,5 +85,13 @@ public class Configuration {
 
     public double getZoomScale() {
         return this.zoomScale;
+    }
+
+    /*
+     * EFFECTS: returns a JSONOjbect representation
+     *          of the current configuration.
+     */
+    public JSONObject toJsonObject() {
+        return null;
     }
 }

@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 /*
  * Represents the list of Configurations in an ArrayList.
  */
@@ -95,5 +98,19 @@ public class ConfigurationList {
         }
         return configNames;
 
+    }
+
+    /*
+     * EFFECTS: returns configurationsList represented as a JSONObject.
+     */
+    public JSONObject configurationsListToJsonObject() {
+        return null;
+    }
+
+    /*
+     * EFFECTS: returns a representation of configurationsList as a JSONArray. 
+     */
+    public JSONArray configurationsToJsonArray() {
+        return null;
     }
 }
