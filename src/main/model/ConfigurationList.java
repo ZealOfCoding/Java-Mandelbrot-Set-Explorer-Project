@@ -111,7 +111,12 @@ public class ConfigurationList {
      * EFFECTS: returns configurationsList represented as a JSONObject.
      */
     public JSONObject configurationsListToJsonObject() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("workspaceConfigurations", configurationsToJsonArray());
+        //consider adding a default functionality, where it defaults to auto render
+        // the last confguration open in the renderer...
+        // could add another key-value pair to the jsonObject...
+        return json;
     }
 
     /*
@@ -119,6 +124,12 @@ public class ConfigurationList {
      * calls configurationsListToJsonObject() in the process.
      */
     public JSONArray configurationsToJsonArray() {
-        return null;
+        JSONArray jsonArray = new JSONArray();
+
+        for (Configuration config : configurationsList) {
+            jsonArray.put(config.toJsonObject());
+        }
+
+        return jsonArray;
     }
 }

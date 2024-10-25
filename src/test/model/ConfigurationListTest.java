@@ -105,7 +105,9 @@ public class ConfigurationListTest {
         tester.addConfiguration(config1);
         tester.addConfiguration(config2);
 
-        JSONArray jsonArray = tester.configurationsToJsonArray();
+        JSONObject jsonObject = tester.configurationsListToJsonObject();
+        JSONArray jsonArray = jsonObject.getJSONArray("workspaceConfigurations");
+        //assertEquals(jsonObject.getJSONArray("workspaceConfigurations"), jsonArray);
 
         checkConfiguration(config1, jsonArray.getJSONObject(0));
         checkConfiguration(config2, jsonArray.getJSONObject(1));

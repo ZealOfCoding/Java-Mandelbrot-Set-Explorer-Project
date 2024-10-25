@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import model.Configuration;
 
-public class TestJson {
+public class JsonTest {
     protected void checkConfiguration(Configuration original, Configuration test) {
 
         assertEquals(original.getConfigName() , test.getConfigName());

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestJsonWriter extends TestJson{
+public class JsonWriterTest extends JsonTest{
     
     @Test
     void testWriterInvalidFile() {

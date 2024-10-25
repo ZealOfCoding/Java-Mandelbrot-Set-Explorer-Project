@@ -92,6 +92,17 @@ public class Configuration {
      *          of the current configuration.
      */
     public JSONObject toJsonObject() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("configName", configName);
+        json.put("iteration", iteration);
+        json.put("renderWidth", renderWidth);
+        json.put("renderHeight", renderHeight);
+        json.put("realStart", realStart);
+        json.put("realEnd", realEnd);
+        json.put("imagStart", imagStart);
+        json.put("imagEnd", imagEnd);
+        json.put("zoomScale", zoomScale);
+        return json;
+
     }
 }

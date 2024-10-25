@@ -1,5 +1,5 @@
 {
-    "configuration": [
+    "workspaceConfigurations": [
         {
             "configName": "someConfig",
             "iteration": 10,

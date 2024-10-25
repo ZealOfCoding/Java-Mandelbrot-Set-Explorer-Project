@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-public class TestJsonReader extends TestJson {
+public class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderNonExistentFile() {

@@ -1,0 +1,24 @@
+{"workspaceConfigurations": [
+    {
+        "configName": "someConfig",
+        "imagStart": 0.789,
+        "imagEnd": 0.123,
+        "zoomScale": 100,
+        "realEnd": 0.456,
+        "renderWidth": 1920,
+        "renderHeight": 1080,
+        "iteration": 10,
+        "realStart": 0.123
+    },
+    {
+        "configName": "anotherConfig",
+        "imagStart": 0.333,
+        "imagEnd": 0.444,
+        "zoomScale": 200,
+        "realEnd": 0.222,
+        "renderWidth": 1080,
+        "renderHeight": 720,
+        "iteration": 20,
+        "realStart": 0.111
+    }
+]}

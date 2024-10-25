@@ -16,7 +16,8 @@ import java.io.*;
 
 public class JsonWriter {
 
-    private String fileName;
+    private static final int TAB = 4;
+    private String fileLocation;
     private PrintWriter writer;
 
     /*
@@ -26,7 +27,7 @@ public class JsonWriter {
      *          current Json file. 
      */
     public JsonWriter(String fileLocation) {
-
+        this.fileLocation = fileLocation;
     }
 
     /* MODIFIES: writer
@@ -35,14 +36,15 @@ public class JsonWriter {
      *          be opened for writing.
      */
     public void open() throws FileNotFoundException {
-
+        writer = new PrintWriter(new File(fileLocation));
     }
 
     /* MODIFIES: writer
      * EFFECTS: writes JSON representation of workroom to a .json file. 
      */
     public void write(ConfigurationList cl) {
-
+        JSONObject json = cl.configurationsListToJsonObject();
+        saveToFile(json.toString(TAB));
     }
 
     /*
@@ -50,7 +52,7 @@ public class JsonWriter {
      * EFFECTS: closes the writer
      */
     public void close() {
-        
+        writer.close();
     }
 
     /*
@@ -58,7 +60,7 @@ public class JsonWriter {
      * EFFECTS: writes String to the writer 
      */
     public void saveToFile(String json) {
-
+        writer.print(json);
     }
     
 }

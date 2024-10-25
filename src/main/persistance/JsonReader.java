@@ -2,9 +2,15 @@
 package persistance;
 
 import model.ConfigurationList;
+import model.Configuration;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /*
@@ -18,12 +24,14 @@ import org.json.JSONObject;
 public class JsonReader {
    
     private String fileLocation;
+    private static final String WORKSPACE_NAME = "workspaceConfigurations";
+    //TODO: make the workspace default name a parameter?
 
     /*
      * EFFECTS: constructs a reader that reads a json file from fileLocation
      */
     public JsonReader(String fileLocation) {
-        
+        this.fileLocation = fileLocation;
     }
 
     /*
@@ -31,21 +39,32 @@ public class JsonReader {
      *          throws an IOException if an error occurs while reading from the file
      */
     public ConfigurationList read() throws IOException {
-        return null;
+        String jsonData = readFile(fileLocation);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        return parseConfigurationsList(jsonObject);
     }
 
     /*
      * EFFECTS: reads source file and returns it as a string.
      */
-    private String readFile() throws IOException {
-        return "";
+    private String readFile(String source) throws IOException {
+        StringBuilder contentBuilder = new StringBuilder();
+
+        try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
+            stream.forEach(s -> contentBuilder.append(s));
+        }
+
+        return contentBuilder.toString();
     }
 
     /*
      * EFFECTS: parses ConfigurationList from JSON object and returns it
      */
     private ConfigurationList parseConfigurationsList(JSONObject jsonObject) {
-        return null;
+        //String name = jsonObject.getString("workspaceConfigurations");
+        ConfigurationList cl = new ConfigurationList();
+        addConfigurationList(cl, jsonObject);
+        return cl;
     }
 
     /*
@@ -54,7 +73,11 @@ public class JsonReader {
      *          JSONArray object, and iterate through it, calling addConfiguration() in the process.
      */
     private void addConfigurationList(ConfigurationList configList, JSONObject jsonObject) {
-
+        JSONArray jsonArray = jsonObject.getJSONArray(WORKSPACE_NAME);
+        for (Object json : jsonArray) {
+            JSONObject nextConfiguration = (JSONObject) json;
+            addConfiguration(configList, nextConfiguration);
+        }
     }
 
     /*
@@ -62,7 +85,19 @@ public class JsonReader {
      *          adds them to configList.
      */
     private void addConfiguration(ConfigurationList configList, JSONObject jsonObject) {
-
+        
+        String configName = jsonObject.getString("configName");
+        int iteration = jsonObject.getInt("iteration");
+        int renderWidth = jsonObject.getInt("renderWidth");
+        int renderHeight = jsonObject.getInt("renderHeight");
+        double realStart = jsonObject.getDouble("realStart");
+        double realEnd = jsonObject.getDouble("realEnd");
+        double imagStart = jsonObject.getDouble("imagStart");
+        double imagEnd = jsonObject.getDouble("imagEnd");
+        double zoomScale = jsonObject.getDouble("zoomScale");
+        Configuration newConfiguration = new Configuration(configName, iteration, renderWidth, renderHeight, 
+                                                            realStart, realEnd, imagStart, imagEnd, zoomScale);
+        configList.addConfiguration(newConfiguration);
     }
 
 

@@ -17,6 +17,7 @@ import java.util.Scanner;
  * and used to render from. 
  */
 public class MandelbrotSetViewerApp {
+    private static final String JSON_STORE = "./data/workroom.json";
     private Renderer renderer;
     private ConfigurationList configList;
     private Scanner scanner;
@@ -84,8 +85,10 @@ public class MandelbrotSetViewerApp {
                     break;
                 case "S":
                     saveWorkspace();
+                    break;
                 case "L":
                     loadWorkspace();
+                    break;
                 case "e":
                     exit = true;
                     break;
@@ -266,13 +269,14 @@ public class MandelbrotSetViewerApp {
      * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
      */
     private void saveWorkspace() {
-        JsonWriter jsonWriter = new JsonWriter("temp");
+        JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
         try {
-
-        }
-
-        catch(FileNotFoundException e) {
-
+            jsonWriter.open();
+            jsonWriter.write(configList);
+            jsonWriter.close();
+            System.out.println("Saved current workspace configurations to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }
 
@@ -286,7 +290,14 @@ public class MandelbrotSetViewerApp {
      * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
      */
     private void loadWorkspace() {
-        JsonReader jsonReader = new JsonReader("temp");
+        JsonReader jsonReader = new JsonReader(JSON_STORE);
+        try {
+            configList = jsonReader.read();
+            System.out.println("Loaded workspace from " + JSON_STORE);
+            //TODO: consider auto rendering last config in renderer?
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
     /*
      * Make a method that effectively takes the current parameter, takes a copy of it, 

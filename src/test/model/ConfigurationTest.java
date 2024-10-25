@@ -49,6 +49,5 @@ public class ConfigurationTest {
         assertEquals(1, jsonObject.getDouble("imagEnd"));
         assertEquals(10.0, jsonObject.getDouble("zoomScale"));
 
-
     }
 }
