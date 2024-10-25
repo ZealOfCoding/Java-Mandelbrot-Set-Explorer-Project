@@ -89,9 +89,16 @@ public class ConfigurationList {
     }
 
     /*
+     * EFFECTS: returns the configurationsList
+     */
+    public ArrayList<Configuration> getConfigurationList() {
+        return configurationsList;
+    }
+
+    /*
      * EFFECTS: returns a String[] list of configNames currently
      */
-    public String[] getConfigNames(){
+    public String[] getConfigNames() {
         String[] configNames = new String[configurationsList.size()];
         for (int i = 0; i < configurationsList.size(); i++) {
             configNames[i] = configurationsList.get(i).getConfigName();
@@ -108,7 +115,8 @@ public class ConfigurationList {
     }
 
     /*
-     * EFFECTS: returns a representation of configurationsList as a JSONArray. 
+     * EFFECTS: returns a representation of configurationsList as a JSONArray.
+     * calls configurationsListToJsonObject() in the process.
      */
     public JSONArray configurationsToJsonArray() {
         return null;

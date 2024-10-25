@@ -7,8 +7,14 @@ import java.io.IOException;
 
 import org.json.JSONObject;
 
-//Referred to the demo of json the following github repository:
-// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+/*
+ * Represents a reader that reads from a JSON file, and converts it 
+ * into a ConfigurationList that the MandelbrotSetViewerApp can use.
+ * 
+ * Referred to the demo of json the following github repository:
+ * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+ */
+
 public class JsonReader {
    
     private String fileLocation;

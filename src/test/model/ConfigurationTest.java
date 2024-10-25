@@ -7,6 +7,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,5 +35,20 @@ public class ConfigurationTest {
         assertEquals(10.0, config.getZoomScale());
     }
 
+    @Test
+    void testToJsonObject() {
+        JSONObject jsonObject = config.toJsonObject();
+        
+        assertEquals("config1", jsonObject.getString("configName"));
+        assertEquals(40, jsonObject.getInt("iteration"));
+        assertEquals(1920, jsonObject.getInt("renderWidth"));
+        assertEquals(1080, jsonObject.getInt("renderHeight"));
+        assertEquals(-2, jsonObject.getDouble("realStart"));
+        assertEquals(1, jsonObject.getDouble("realEnd"));
+        assertEquals(-1, jsonObject.getDouble("imagStart"));
+        assertEquals(1, jsonObject.getDouble("imagEnd"));
+        assertEquals(10.0, jsonObject.getDouble("zoomScale"));
 
+
+    }
 }

@@ -1,0 +1,26 @@
+{
+    "configuration": [
+        {
+            "configName": "someConfig",
+            "iteration": 10,
+            "renderWidth": 1920,
+            "renderHeight": 1080, 
+            "realStart": 0.123,
+            "realEnd": 0.456,
+            "imagStart": 0.789,
+            "imagEnd": 0.123,
+            "zoomScale": 100
+        }, 
+        {
+            "configName": "anotherConfig",
+            "iteration": 20,
+            "renderWidth": 1080,
+            "renderHeight": 720, 
+            "realStart": 0.111,
+            "realEnd": 0.222,
+            "imagStart": 0.333,
+            "imagEnd": 0.444,
+            "zoomScale": 200
+        }
+    ]
+}

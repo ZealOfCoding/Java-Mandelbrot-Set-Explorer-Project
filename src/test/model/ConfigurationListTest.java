@@ -1,5 +1,9 @@
 package model;//does this give scope visibility into the model package?...
 
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -86,5 +90,36 @@ public class ConfigurationListTest {
 
         assertEquals(configNames[0], config1.getConfigName());
         assertEquals(configNames[1], config2.getConfigName());
+    }
+
+    @Test 
+    public void testGetConfigurationsList() {
+        tester.addConfiguration(config1);
+        ArrayList<Configuration> testArray = new ArrayList<Configuration>();
+        testArray.add(config1);
+        assertEquals(testArray.get(0), tester.getConfigurationList().get(0));
+    }
+
+    @Test
+    void configurationsToJson() {
+        tester.addConfiguration(config1);
+        tester.addConfiguration(config2);
+
+        JSONArray jsonArray = tester.configurationsToJsonArray();
+
+        checkConfiguration(config1, jsonArray.getJSONObject(0));
+        checkConfiguration(config2, jsonArray.getJSONObject(1));
+    }
+
+    void checkConfiguration(Configuration original, JSONObject test) {
+        assertEquals(original.getConfigName(), test.getString("configName"));
+        assertEquals(original.getIteration(), test.getInt("iteration"));
+        assertEquals(original.getRenderWidth(), test.getInt("renderWidth"));
+        assertEquals(original.getRenderHeight(), test.getInt("renderHeight"));
+        assertEquals(original.getRealStart(), test.getDouble("realStart"));
+        assertEquals(original.getRealEnd(), test.getDouble("realEnd"));
+        assertEquals(original.getImagStart(), test.getDouble("imagStart"));
+        assertEquals(original.getImagEnd(), test.getDouble("imagEnd"));
+        assertEquals(original.getZoomScale(), test.getDouble("zoomScale"));
     }
 }
