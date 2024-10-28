@@ -77,6 +77,10 @@ public class ConfigurationListTest {
         tester.removeConfiguration("someConfig");
         assertNull(tester.getConfiguration("someConfig"));
         assertEquals(1,tester.getSize());
+        
+        if (tester.getConfiguration("someConfig") == config1) {
+            fail();
+        }
 
         assertFalse(tester.removeConfiguration("nonExistentConfig"));
     }

@@ -71,7 +71,7 @@ public class ConfigurationList {
      */
     public Boolean removeConfiguration(String configName) {
         for (int i = 0; i < configurationsList.size(); i++) {
-            if (configurationsList.get(i).getConfigName() == configName) {
+            if (configurationsList.get(i).getConfigName().equals(configName)) {
                 configurationsList.remove(i);
                 return true;
             }
