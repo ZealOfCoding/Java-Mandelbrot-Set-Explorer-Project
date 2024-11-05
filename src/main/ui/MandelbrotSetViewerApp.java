@@ -42,11 +42,15 @@ public class MandelbrotSetViewerApp {
         renderer = new Renderer();
         renderer.renderSet();
         displaySet(renderer.getSet());
-
         System.out.println("Welcome to the interactive Mandelbrot Set viewer App. ");
         System.out.println("Please select one of the following options:");
 
         interfacePanelInput();
+        /*
+         * Will have to rethink the user interface here. 
+         * Hmmm, perhaps, for the sake of proper code implementation and preservation, 
+         * I should just make a call 
+         */
     }
 
     /*

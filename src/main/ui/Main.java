@@ -4,6 +4,12 @@ package ui;
 public class Main {
     public static void main(String[] args) throws Exception {
         //calls the MandelbrotSetViewerApp application
-        new MandelbrotSetViewerApp();
+        //new MandelbrotSetViewerApp();
+
+        // new InterfacePanel...
+        /*
+         * Make a whole new GUIMandelbrotSetViewerApp() class.
+         */
+        new GUIMandelbrotSetViewerApp();
     }
 }
