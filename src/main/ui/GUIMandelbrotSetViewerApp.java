@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.*;
 
@@ -16,36 +17,20 @@ public class GUIMandelbrotSetViewerApp extends JFrame {
     public GUIMandelbrotSetViewerApp() {
         super("Mandelbrot Set Viewer App");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        add(ip, BorderLayout.EAST);
-        add(dp, BorderLayout.CENTER);
+        ip = new InterfacePanel();
+        dp = new DisplayPanel();
+
+        setDefaults();
+
         pack();
         setVisible(true);
 
     }
 
-    // private void runGUIMandelbrotSetViewerApp() {
-
-
-    //     JFrame frame = new JFrame("Mandelbrot Set Viewer App");
-    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //     frame.setSize(900,900);
-
-    //     JPanel panel = new JPanel();
-    //     frame.add(panel);
-        
-    //     frame.setVisible(true);
-
-    //     panel.setLayout(null);
-
-    //     JLabel label = new JLabel("Hello world!");
-
-    //     label.setBounds(10, 20, 80, 25);
-    //     panel.add(label);
-
-    //     JButton button = new JButton("Click Me");
-    //     button.setBounds(10, 50, 150, 25);
-    //     panel.add(button);
-
-    //     button.addActionListener(e -> JOptionPane.showMessageDialog(null, "Button Clicked!"));
-    // }
+    private void setDefaults() {
+        add(ip, BorderLayout.WEST);
+        add(dp, BorderLayout.CENTER);
+        setResizable(false);;
+        setBackground(Color.RED);
+    }
 }
