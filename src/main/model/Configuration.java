@@ -46,6 +46,10 @@ public class Configuration {
 
     }
 
+    public void setConfigName(String configName) {
+        this.configName = configName;
+    }
+
     //name must be under 20 characters...
     public String getConfigName() {
         return this.configName;

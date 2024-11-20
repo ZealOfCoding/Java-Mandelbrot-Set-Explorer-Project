@@ -7,15 +7,30 @@ import java.awt.Font;
 
 import javax.swing.*;
 
+import ui.PanelsEventMediator;
+/*//////////////////////////////////////////////////////////////
+ * DESIGN RECONSIDERATION:
+ * - replace this with just a simple pop up error window?
+ * 
+ * THINGS TO DO:
+ * - make the whole panel have a flash animation when updated.
+ */////////////////////////////////////////////////////////////
+
+
 public class MessagesPanel extends JPanel {
     private JTextArea messagesBox;
+    private PanelsEventMediator panelsEventMediator;
     
     public MessagesPanel() {
         super();
-          initializeElements();
-          setDefaults();
-          addElements();
+        initializeElements();
+        setDefaults();
+        addElements();
 
+    }
+
+    public void setMediator(PanelsEventMediator panelsEventMediator) {
+        this.panelsEventMediator = panelsEventMediator;
     }
 
     private void initializeElements() {
@@ -34,9 +49,10 @@ public class MessagesPanel extends JPanel {
 
     private void addElements() {
         add(messagesBox, BorderLayout.CENTER);
+        
     }
 
-    private void setMessage(String message) {
+    public void setMessage(String message) {
         messagesBox.setText(message);
     }
 

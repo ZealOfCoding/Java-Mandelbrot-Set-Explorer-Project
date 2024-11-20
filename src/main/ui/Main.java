@@ -6,7 +6,6 @@ public class Main {
         //calls the MandelbrotSetViewerApp application
         //new MandelbrotSetViewerApp();
 
-        // new InterfacePanel...
         /*
          * Make a whole new GUIMandelbrotSetViewerApp() class.
          */

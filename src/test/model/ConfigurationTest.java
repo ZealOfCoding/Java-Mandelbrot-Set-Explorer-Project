@@ -36,6 +36,12 @@ public class ConfigurationTest {
     }
 
     @Test
+    void testSetConfigName() {
+        config.setConfigName("someConfigName");
+        assertEquals("someConfigName", config.getConfigName());
+    }
+
+    @Test
     void testToJsonObject() {
         JSONObject jsonObject = config.toJsonObject();
         

@@ -31,17 +31,19 @@ public class Renderer extends Configuration {
 
     /*
      * EFFECTS: default render, renders as soon as program is first open.
+     * 
+     * This is now redundant.
      */
     public Renderer() {
-        int height = 48;//TODO: remember to change this back to something appropriate like 600 in final phase
-        int width = 72;//TODO: remember to change this back to something appropriate like 900 in final phase
+        int height = 800;//TODO: remember to change this back to something appropriate like 600 in final phase
+        int width = 800;//TODO: remember to change this back to something appropriate like 900 in final phase
 
-        this.configName = "default";//irrelevant default...
-        this.iteration = 100;
+        this.configName = "Default";//irrelevant default...
+        this.iteration = 1000;
         this.renderWidth = width;
         this.renderHeight = height;
-        this.realStart = -2;
-        this.realEnd = 1;
+        this.realStart = -1.5;
+        this.realEnd = 0.5;
         this.imagStart = -1;
         this.imagEnd = 1;
         this.zoomScale = 1;//irrelevant default
