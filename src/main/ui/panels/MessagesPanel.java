@@ -21,6 +21,9 @@ public class MessagesPanel extends JPanel {
     private JTextArea messagesBox;
     private PanelsEventMediator panelsEventMediator;
     
+    /*
+     * EFFECTS: Constructor nitializes elements, sets defaults, and adds elements. 
+     */
     public MessagesPanel() {
         super();
         initializeElements();
@@ -29,14 +32,23 @@ public class MessagesPanel extends JPanel {
 
     }
 
+    /*
+     * EFFECTS: sets the mediator object for inter-class communication. 
+     */
     public void setMediator(PanelsEventMediator panelsEventMediator) {
         this.panelsEventMediator = panelsEventMediator;
     }
 
+    /*
+     * EFFECTS: initializes the JTextArea for the messages panel.
+     */
     private void initializeElements() {
         messagesBox = new JTextArea("System Messages Display Panel");
     }
 
+    /*
+     * EFFECTS: sets defaults. 
+     */
     private void setDefaults() {
         setBackground(Color.ORANGE);
         setPreferredSize(new Dimension(400, 75));
@@ -47,17 +59,20 @@ public class MessagesPanel extends JPanel {
         messagesBox.setEditable(false);
     }
 
+    /*
+     * EFFECTS: adds the messages box to the JPanel
+     */
     private void addElements() {
         add(messagesBox, BorderLayout.CENTER);
         
     }
 
+    /*
+     * EFFECTS: sets the message of the JTextArea
+     */
     public void setMessage(String message) {
         messagesBox.setText(message);
     }
-
-    //some method to update the JLabel text here...
-
 
     //TODO: use to catch exceptions, and their error messages, and display them to the user.
 }

@@ -46,6 +46,14 @@ public class PanelsEventMediator {
         return configList;
     }
 
+    public void setConfigList(ConfigurationList newConfigList) {
+        /*
+         * NOTE: could it be bad that i'm just giving to the pointer of the newly
+         * generated ConfigurationList from the JSONReader? I shall see...
+         */
+        this.configList = newConfigList;
+    }
+
     public void removeConfigurationFromConfigurationList(String configName) {
         configList.removeConfiguration(configName);
     }
@@ -81,5 +89,4 @@ public class PanelsEventMediator {
     public void configurationsPanelSetUpdateConfigButtons() {
         cp.loadButtonsFromConfigList();
     }
-
 }

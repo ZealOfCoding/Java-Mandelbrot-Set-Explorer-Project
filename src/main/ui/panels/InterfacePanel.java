@@ -34,32 +34,41 @@ public class InterfacePanel extends JPanel {
         initializeElements();
         setDefaults();
         addElements();
-        addKeyListener(null);
     }
 
+    /*
+     * EFFECTS: establishes the mediator object for inter-class communication. 
+     */
     public void setMediator(PanelsEventMediator panelsEventMediator) {
         this.panelsEventMediator = panelsEventMediator;
         mip.setMediator(panelsEventMediator);
         mp.setMediator(panelsEventMediator);
         lsp.setMediator(panelsEventMediator);
         cp.setMediator(panelsEventMediator);
-
     }
 
+    /*
+     * EFFECTS: initializes the subpanels. 
+     */
     private void initializeElements() {
         mip = new ManualInputsPanel();
         mp = new MessagesPanel();
         lsp = new LoadSavePanel();
         cp = new ConfigurationsPanel();
-
     }
 
+    /*
+     * EFFECTS: sets defaults of this panel.
+     */
     private void setDefaults() {
         setPreferredSize(new Dimension(400, 800));
         setBackground(Color.BLUE);
         //setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
+    /*
+     * EFFECTS: adds subpanels to this panel.
+     */
     private void addElements() {
         add(mip, BorderLayout.CENTER);
         add(mp, BorderLayout.CENTER);

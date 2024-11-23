@@ -11,6 +11,11 @@ import model.Configuration;
 import model.ConfigurationList;
 import ui.PanelsEventMediator;
 
+/*
+ * ConfigurationPanel contains the ScrollPane of configuration buttons, and handles adding and removing of 
+ * configurations. Adds a configuration by taking the parameters from the ManualInputsPanel and makes a new 
+ * Configuration, and saves it in the program. 
+ */
 public class ConfigurationsPanel extends JPanel {
 
     private JPanel row1;
@@ -28,8 +33,9 @@ public class ConfigurationsPanel extends JPanel {
 
     private PanelsEventMediator panelsEventMediator;
 
+    //EFFECTS: constructs the ConfigurationPanel.
     public ConfigurationsPanel() {
-        super();
+        //super();
         initializeElements();
         setDefaults();
         addElements();
@@ -42,6 +48,9 @@ public class ConfigurationsPanel extends JPanel {
         this.panelsEventMediator = panelsEventMediator;
     }
 
+    /*
+     * EFFECTS: initializes elements
+     */
     private void initializeElements() {
 
         //panels to organize elements
@@ -67,6 +76,9 @@ public class ConfigurationsPanel extends JPanel {
 
     }
 
+    /*
+     * EFFECTS: initializes the configurationScrollPane
+     */
     private JPanel initializeConfigurationListScrollPane() {
         configButtonListPanel = new JPanel();
     
@@ -83,23 +95,35 @@ public class ConfigurationsPanel extends JPanel {
         return configButtonListPanel;
     }
     
+    /*
+     * EFFECTS: sets the defaults of the panel.
+     */
     private void setDefaults() {
         setBackground(Color.PINK);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setSize(new Dimension(400, 500));
-
+        //setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         configButtonListPanel.setLayout(new BoxLayout(configButtonListPanel, BoxLayout.Y_AXIS));
 
         row1.setBackground(Color.RED);
+        row1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         row1.setPreferredSize(new Dimension(400, 300));
+        
+
         row2.setBackground(Color.YELLOW);
+        row2.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         row2.setPreferredSize(new Dimension(400, 80));
+        
+        row3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         row3.setBackground(Color.GREEN);
         row3.setPreferredSize(new Dimension(400, 40));
 
         configName.setPreferredSize(new Dimension(350, 30));
     }
 
+    /*
+     * EFFECTS: adds the elements to the ConfigurationPanel
+     */
     private void addElements() {
 
         row1.add(configurationListScrollPane);
@@ -115,7 +139,9 @@ public class ConfigurationsPanel extends JPanel {
         add(row3);
     }
 
-    
+    /*
+     * EFFECTS: loads config buttons from the ConfigurationList into the ScrollPane.
+     */
     public void loadButtonsFromConfigList() {
         /*
         * 0. Remove all previous buttons from config buttons list.
@@ -126,24 +152,32 @@ public class ConfigurationsPanel extends JPanel {
         */
 
         //remove any old buttons in the list
-        //BUG: save isn't working properly...
-        //I click to save the configurations, but when I go to load, 
-        // it doesn't load all the previously loaded configs. 
-        //check the JSON file.....
         for (int i = 0; i < buttonsList.size(); i++) {
             JButton currentButton = buttonsList.get(i);
-            removeConfigButtonFromConfigButtonAndConfigurationsList(currentButton);
+            removeConfigButtonFromScrollPane(currentButton);
         }
+        buttonsList.clear();
         
         //add new buttons from the saved Json file
         String[] configListNames = panelsEventMediator.getConfigList().getConfigNames();
         for (String configName : configListNames) {
-            addButtonToConfigButtonAndConfigurationsList(configName);
+            addButtonToConfigButtonList(configName);
         }
     }
     
+    /*
+     * EFFECTS: removes a button from the scrollpane.
+     */
+    private void removeConfigButtonFromScrollPane(JButton button) {
+        configButtonListPanel.remove(button);
+        configButtonListPanel.revalidate();
+        configButtonListPanel.repaint();
+    }
     
-    private void addButtonToConfigButtonAndConfigurationsList(String configName) {
+    /*
+     * EFFECTS: adds a button to the scrollpane.
+     */
+    private void addButtonToConfigButtonList(String configName) {
         JButton newJScrollPaneButton = new JButton(configName);
         newJScrollPaneButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         Dimension temp = new Dimension(Integer.MAX_VALUE, newJScrollPaneButton.getMinimumSize().height);
@@ -156,16 +190,9 @@ public class ConfigurationsPanel extends JPanel {
         configButtonListPanel.repaint();
     }
     
-    private void removeConfigButtonFromConfigButtonAndConfigurationsList(JButton button) {
-        String buttonText = button.getText();
-
-        configButtonListPanel.remove(button);
-        buttonsList.remove(button);
-        panelsEventMediator.removeConfigurationFromConfigurationList(buttonText);
-        configButtonListPanel.revalidate();
-        configButtonListPanel.repaint();
-    }
-
+    /*
+     * Action handles adding a configuration to the scrollpane and updates the DiplayPanel. 
+     */
     private class AddConfigurationAction extends AbstractAction {
 
         @Override
@@ -175,18 +202,6 @@ public class ConfigurationsPanel extends JPanel {
 
         private void addConfiguration() {
             /*
-             * Adding a button steps:
-             * - read data from fields in ManualInputsPanel. Make a call to PanelsEventMediator for
-             *   a request in a method from ManualInputsPanel that creates and sends a Configuration object.
-             * 
-             * - read string from "configName" field. 
-             * - add/change fields like the configurationName to "configName" in the passed Configuration.
-             * 
-             * - make a request to ManualInputsPanel for getConfigList(). 
-             * - add the new Configuration to the ConfigurationList.
-             * 
-             * - make a new button with the name, add it to the buttonsList.
-             * 
              * Something to do later:
              * ***** ADD an exception handler. This should throw an exception for when the 
              *       the class is unable to add a configuration due to improper format. Could 
@@ -213,9 +228,9 @@ public class ConfigurationsPanel extends JPanel {
                     // System.out.println(configTemp.getZoomScale());
                     // System.out.println("___________________________________________________________________");
         
-                    addButtonToConfigButtonAndConfigurationsList(configName.getText());
-
+                    addButtonToConfigButtonList(configName.getText());
                     panelsEventMediator.addConfigurationToConfigurationList(configTemp);
+                    
                     configName.setText("");
 
                 } else {
@@ -230,6 +245,9 @@ public class ConfigurationsPanel extends JPanel {
         }
     }
 
+    /*
+     * Action deletes a configuration from the scrollpane and updates the DiplayPanel. 
+     */
     private class DeleteConfigurationAction extends AbstractAction {
 
         @Override
@@ -246,7 +264,9 @@ public class ConfigurationsPanel extends JPanel {
 
                     if (button.getText().equals(buttonText)) {
 
-                        removeConfigButtonFromConfigButtonAndConfigurationsList(button);
+                        removeConfigButtonFromScrollPane(button);
+                        panelsEventMediator.removeConfigurationFromConfigurationList(buttonText);
+
                         configName.setText("");
                         break;
                     }
@@ -259,6 +279,10 @@ public class ConfigurationsPanel extends JPanel {
         }
     }
 
+    /*
+     * Action gets the configuration name from the calling button, looks for it in the ConfigurationList, and calls
+     * the ManualInputsPanel to update the fields with the values in the Configuration object. 
+     */
     private class ConfigurationButtonAction extends AbstractAction {
 
         @Override
@@ -290,6 +314,9 @@ public class ConfigurationsPanel extends JPanel {
         }
     }
 
+    /*
+     * Sets the default parameters into the fields in the MaunalInputsPanel
+     */
     private class DefaultButtonAction extends AbstractAction {
 
         @Override

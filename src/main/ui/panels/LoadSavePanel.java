@@ -14,12 +14,20 @@ import persistance.JsonReader;
 import persistance.JsonWriter;
 import ui.PanelsEventMediator;
 
+/*
+ * LoadSavePanel handles the loading and saving of the workspace, or the list of confgurations 
+ * in the program locally to the computer. 
+ */
 public class LoadSavePanel extends JPanel {
     
     private static final String JSON_STORE = "./data/workroom.json";
     private JButton loadWorkspace;
     private JButton saveWorkspace;
     private PanelsEventMediator panelsEventMediator;
+    
+    /*
+     * calls initializing and adding methods. 
+     */
     public LoadSavePanel() {
         super();
         initializeElements();
@@ -28,6 +36,9 @@ public class LoadSavePanel extends JPanel {
         addElements();
     }
 
+    /*
+     * EFFECTS: sets the mediator object for inter-class communication. 
+     */
     public void setMediator(PanelsEventMediator panelsEventMediator) {
         this.panelsEventMediator = panelsEventMediator;
     }
@@ -52,31 +63,38 @@ public class LoadSavePanel extends JPanel {
         add(saveWorkspace);
     }
 
+    //reads from the workroom.json file.
     private class LoadWorkspaceAction extends AbstractAction {
-        JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
         
         @Override
         public void actionPerformed(ActionEvent e) {
+            JsonReader jsonReader = new JsonReader(JSON_STORE);
             try {
+                /*
+                 * How to load the workspace from the workroom.json file:
+                 * 
+                 * - get the ConfigurationList from the jsonReader.read() method
+                 * - 
+                 */
 
-                jsonWriter.open();
-                jsonWriter.write(panelsEventMediator.getConfigList());
-                jsonWriter.close();
-
+                ConfigurationList thisConfigList = jsonReader.read();
+                panelsEventMediator.setConfigList(thisConfigList);
+                ConfigurationList tempDebugCheck = panelsEventMediator.getConfigList();
                 panelsEventMediator.configurationsPanelSetUpdateConfigButtons();
 
-                System.out.println("Loaded workspace from " + JSON_STORE);
-                panelsEventMediator.messagesPanelUpdate("Loaded workspace from " + JSON_STORE);
+                String eventMessage = "Loaded workspace from " + JSON_STORE;
+                System.out.println(eventMessage);
+                panelsEventMediator.messagesPanelUpdate(eventMessage);
 
                 /*
                  * TO DO: call ConfigurationsPanel, and make a method there that 
                  * looks through all configurations that have now been added to the 
                  * configurationList, and add a button for each config.
                  */
-            } catch (FileNotFoundException x) {
-
-                System.out.println("Unable to read from file: " + JSON_STORE);
-                panelsEventMediator.messagesPanelUpdate("Unable to read from file: " + JSON_STORE);
+            } catch (IOException x) {
+                String errorMessage = "Error: Unable to read from file: " + JSON_STORE;
+                System.out.println(errorMessage);
+                panelsEventMediator.messagesPanelUpdate(errorMessage);
             
             }
         }
@@ -86,18 +104,20 @@ public class LoadSavePanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-        JsonReader jsonReader = new JsonReader(JSON_STORE);
-        ConfigurationList configListPointer = panelsEventMediator.getConfigList();
-            try {
 
-                configListPointer = jsonReader.read();
+            try {
+                JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
+                jsonWriter.open();
+                jsonWriter.write(panelsEventMediator.getConfigList());
+                jsonWriter.close();
+
                 System.out.println("Saved current workspace configurations to " + JSON_STORE);
                 panelsEventMediator.messagesPanelUpdate("Saved current workspace configurations to " + JSON_STORE);
 
-            } catch (IOException x) {
-
-                System.out.println("Unable to write to file: " + JSON_STORE);
-                panelsEventMediator.messagesPanelUpdate("Unable to write to file: " + JSON_STORE);
+            } catch (FileNotFoundException x) {
+                String errorMessage = "Unable to write to file: " + JSON_STORE;
+                System.out.println(errorMessage);
+                panelsEventMediator.messagesPanelUpdate(errorMessage);
 
             }
         }

@@ -45,7 +45,7 @@ set is generated. It will also have the ability to save the current parameters, 
 ________________________________________________________________________________
 
 
-# ALL OTHER IDEAS(will stick to the Mandelbrot Set Viewer most likely...)
+## ALL OTHER IDEAS(will stick to the Mandelbrot Set Viewer most likely...)
 - Mandelbrot Set Viewer
     - X: A configuration of settings & values
     - Y: A list of configurations, and presets
@@ -58,4 +58,30 @@ ________________________________________________________________________________
 - drum beat maker
     - X: a recording of a drum beat
     - Y: List of drum beat recordings of user A
+
+__________________________________________________________________________________
+
+# Instructions for End User
+
+1. You can enter parameters in the Manual Inputs Panel's fields of how to generate the image:
+    - Iteration
+    - Real Start
+    - Real End
+    - Imaginary Start
+    - Imaginary End
+
+    Then, you can click the "GENERATE" button to render the image in the Display Panel on the right(visual component). 
+
+2. To save a configuration, the above mentioned fields must have a valid number for the parameter, and there exists a name entered in the "configuration name..." field. Then, you can press "Add Configuration" at the bottom of the Interface Panel to save it into the scroll pane, as a button, along with the default button that's always there. 
+
+3. To delete a configuration, enter the name of the desired configuration to delete. It must exist in the scroll pane. Press "Delete Configuration" to delete it. 
+
+4. To save the current list of configurations from the scroll pane onto your device, press "Save Current Workspace", which will save it to a json file locally in your device. 
+
+5. To load the saved list of configurations into the scroll pane, click "Load Saved Workspace" to load from the json file. 
+
+6. To zoom into the image manually using the display panel alone, first generate a default image (it can be anything, but i'd suggest using the default configuration as a starter). Then, enter a zoom scale factor in the "Zoom Scale" field. Position your cursor over the point on the image that you want to zoom into. Then, press the up arrow key on your keyboard. It should zoom into the image at a scale determined by the field in "Zoom Scale". 
+
+7. To zoom out of the image, do the same as above, but press the down arrow.  
+
 

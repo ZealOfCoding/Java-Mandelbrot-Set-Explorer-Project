@@ -161,7 +161,6 @@ public class ManualInputsPanel extends JPanel {
         row8.add(new JLabel("Zoom Scale(Decimal):"));
         row8.add(zoomScale);
         row8.add(setZoom, BorderLayout.EAST);
-
     }
    
     /*
@@ -244,6 +243,8 @@ public class ManualInputsPanel extends JPanel {
         zoomScale.setText(Double.toString(config.getZoomScale()));
     }
 
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                         EVENT HANDLER CLASSES                                         // 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -254,24 +255,19 @@ public class ManualInputsPanel extends JPanel {
     */
     private class GenerateAction extends AbstractAction {
 
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            
             try {
-
                 Configuration tempConfig = makeConfigurationObject();
-
                 panelsEventMediator.messagesPanelUpdate("Rendering...");
-                
                 SwingWorker<Void, Void> worker = new SwingWorker<>() {
-
                     @Override
                     protected Void doInBackground() throws Exception {
-
                         panelsEventMediator.displayPanelGenerate(tempConfig);
                         return null;
                     }
-
+                    
                     @Override
                     protected void done() {
                         panelsEventMediator.messagesPanelUpdate("Render completed.");
@@ -300,6 +296,16 @@ public class ManualInputsPanel extends JPanel {
                              + "imagEnd: upper bound on the Y axis\n";
             JOptionPane.showMessageDialog(null, message);
         }
+    }
+
+    private class UpdateZoomAction extends AbstractAction {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //TODO: update the ZoomScale value in the Renderer to whatever
+            //value the zoomScale is.
+        }
+
     }
 
 }
