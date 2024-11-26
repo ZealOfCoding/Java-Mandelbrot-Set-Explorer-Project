@@ -102,6 +102,9 @@ public class Renderer extends Configuration {
                 setData[h][w] = isInSet(realC, imagC, realZ, imagZ);
             }
         }
+
+        EventLog.getInstance().logEvent(
+            new Event("Rendered \"" + configName + "\" to the DisplayPanel"));
     }
 
     /* 

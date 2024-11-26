@@ -4,13 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.*;
+import java.awt.event.*;
 
 import model.ConfigurationList;
+import model.Event;
+import model.EventLog;
 import ui.panels.DisplayPanel;
 import ui.panels.InterfacePanel;
 
-//TODO: remember to delete this later!!!!
-import java.awt.event.KeyEvent;
 
 /*
  * Runs the GUIMandelbrotSetViewerApp. Is used like a mediator between 
@@ -33,7 +34,7 @@ public class GuiMandelbrotSetViewerApp extends JFrame {
 
         pack();
         setVisible(true);
-        //addKeyListener(new KeyboardEvent());
+        addWindowListener(new LogToConsoleEvent());
     }
 
     private void initializeElements() {
@@ -60,5 +61,32 @@ public class GuiMandelbrotSetViewerApp extends JFrame {
     private void addElements() {
         add(ip, BorderLayout.WEST);
         add(dp, BorderLayout.CENTER);
+    }
+
+    private class LogToConsoleEvent extends WindowAdapter {
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            System.out.println("This should have been printed after the program closed!");
+            printEventLogToConsole();
+            dispose();
+        }
+
+        private void printEventLogToConsole() {
+            EventLog eventLog = EventLog.getInstance();
+
+            System.out.println("\n\n--------------------------------");
+            System.out.println("EVENT LOG:");
+            System.out.println("--------------------------------");
+            
+            for (Event next : eventLog) {
+                System.out.println(next.toString());
+                System.out.println("\n");
+            }
+
+            System.out.println("--------------------------------");
+            System.out.println("END OF LOGGED EVENTS");
+            System.out.println("--------------------------------");
+        }
     }
 }

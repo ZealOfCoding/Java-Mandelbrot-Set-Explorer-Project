@@ -82,6 +82,44 @@ ________________________________________________________________________________
 
 6. To zoom into the image manually using the display panel alone, first generate a default image (it can be anything, but i'd suggest using the default configuration as a starter). Then, enter a zoom scale factor in the "Zoom Scale" field. Position your cursor over the point on the image that you want to zoom into. Then, press the up arrow key on your keyboard. It should zoom into the image at a scale determined by the field in "Zoom Scale". 
 
-7. To zoom out of the image, do the same as above, but press the down arrow.  
+7. To zoom out of the image, do the same as above, but press the down arrow. 
+
+# Phase 4: Task 2
+## An example representative log of typical events in the program:
+
+    --------------------------------
+    EVENT LOG:
+    --------------------------------
+    Mon Nov 25 22:54:37 PST 2024
+    Rendered "null" to the DisplayPanel
+
+
+    Mon Nov 25 22:54:44 PST 2024
+    Rendered "" to the DisplayPanel
+
+
+    Mon Nov 25 22:54:49 PST 2024
+    Added new configuration  "zoom1" to ConfigurationList
+
+
+    Mon Nov 25 22:54:54 PST 2024
+    Rendered "" to the DisplayPanel
+
+
+    Mon Nov 25 22:55:00 PST 2024
+    Added new configuration  "zoom2" to ConfigurationList
+
+
+    Mon Nov 25 22:55:15 PST 2024
+    Rendered "zoom1" to the DisplayPanel
+
+
+    Mon Nov 25 22:55:21 PST 2024
+    Removed configuration  "zoom2" from ConfigurationList
+
+
+    --------------------------------
+    END OF LOGGED EVENTS
+    --------------------------------
 
 

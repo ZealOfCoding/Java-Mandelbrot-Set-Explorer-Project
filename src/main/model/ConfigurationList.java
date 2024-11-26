@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 /*
  * Represents the list of Configurations in an ArrayList.
+ * This is my Y.
  */
 public class ConfigurationList {
 
@@ -48,6 +49,10 @@ public class ConfigurationList {
             }
         }
         configurationsList.add(newConfig);
+
+        EventLog.getInstance().logEvent(
+            new Event("Added new configuration  \"" + newConfig.getConfigName() + "\" to ConfigurationList"));
+        
         return true;
     }
 
@@ -73,6 +78,10 @@ public class ConfigurationList {
         for (int i = 0; i < configurationsList.size(); i++) {
             if (configurationsList.get(i).getConfigName().equals(configName)) {
                 configurationsList.remove(i);
+
+                EventLog.getInstance().logEvent(
+                    new Event("Removed configuration  \"" + configName + "\" from ConfigurationList"));
+
                 return true;
             }
         }

@@ -36,6 +36,8 @@ public class ManualInputsPanel extends JPanel {
     protected JTextField zoomScale;
     protected JButton setZoom;
 
+    private String currentConfigName;
+
     private PanelsEventMediator panelsEventMediator;
     
     public ManualInputsPanel() {
@@ -130,6 +132,7 @@ public class ManualInputsPanel extends JPanel {
     private void addEventHandlers() {
         generate.addActionListener(new GenerateAction());
         infoQuestion.addActionListener(new InfoQuestionAction());
+        zoomScale.addActionListener(new UpdateZoomAction());
     }
 
     /*
@@ -213,8 +216,7 @@ public class ManualInputsPanel extends JPanel {
      * EFFECTS: makes a new Configuration object from the text values in the JTextFields.
      */
     private Configuration makeConfigurationObject() {
-        Configuration newConfig = new Configuration("",
-                                                    parsedIterationValue(iteration.getText()), 
+        Configuration newConfig = new Configuration(currentConfigName,                                                   parsedIterationValue(iteration.getText()), 
                                                     panelsEventMediator.getDisplayWidth(),
                                                     panelsEventMediator.getDisplayHeight(), 
                                                     parsedRealStartValue(realStart.getText()), 
@@ -241,6 +243,7 @@ public class ManualInputsPanel extends JPanel {
         imagStart.setText(Double.toString(config.getImagStart()));
         imagEnd.setText(Double.toString(config.getImagEnd()));
         zoomScale.setText(Double.toString(config.getZoomScale()));
+        currentConfigName = config.getConfigName();
     }
 
 
@@ -298,14 +301,29 @@ public class ManualInputsPanel extends JPanel {
         }
     }
 
+    /*
+     * Updates the zoom scale when zooming by mouse & keyboard.
+     */
     private class UpdateZoomAction extends AbstractAction {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             //TODO: update the ZoomScale value in the Renderer to whatever
             //value the zoomScale is.
-        }
+            double zoomScaleValue = 0;
+            try {
+                zoomScaleValue = parsedZoomValue(zoomScale.getText());
+            } catch (NumberFormatException x) {
+                panelsEventMediator.messagesPanelUpdate("An invalid zoomScale was entered.");
+            }
 
+            panelsEventMediator.displayPanelSetZoom(zoomScaleValue);
+
+            /*
+             * TODO: verify that the code is actually zooming into the image...
+             * I don't think it is.....
+             */
+        }
     }
 
 }

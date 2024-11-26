@@ -2,7 +2,9 @@ package model;
 
 import org.json.JSONObject;
 
-/*Represents a configuration of values of how to generate the set. */
+/*Represents a configuration of values of how to generate the set.
+ * This is my X.
+ */
 public class Configuration {
     protected String configName;
     protected int iteration;
@@ -61,12 +63,10 @@ public class Configuration {
         return this.iteration;
     }
 
-    //if width is greater than 1920, either give out error message or cap it at 1920
     public int getRenderWidth() {
         return this.renderWidth;
     }
 
-    //if width is greater than 1080, either give out error message or cap it at 1080
     public int getRenderHeight() {
         return this.renderHeight;
     }

@@ -20,6 +20,8 @@ public class DisplayPanel extends JPanel {
     protected static final int DISPLAY_WIDTH = 800;
     protected static final int DISPLAY_HEIGHT = 800;
 
+    private double zoomScale;
+
     private Renderer renderer;
     private PanelsEventMediator panelsEventMediator;
     private boolean[][] setData;
@@ -37,7 +39,7 @@ public class DisplayPanel extends JPanel {
         setFocusable(true);
         //requestFocusInWindow();
 
-        addKeyListener(new KeyboardEvent());
+        addKeyListener(new KeyboardEvent(zoomScale));
 
         //System.out.println("Is the DisplayPanel even focusable?: " + isFocusable());
         //System.out.println("How likely is this window focusable?: " + requestFocusInWindow());
@@ -73,6 +75,11 @@ public class DisplayPanel extends JPanel {
     private void setDefaults() {
         setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         setBackground(Color.LIGHT_GRAY);
+        zoomScale = 2;
+    }
+
+    public void setZoom(double zoomScale) {
+        this.zoomScale = zoomScale;
     }
 
     /* REQUIRES: a valid Configuration object. 
@@ -138,6 +145,11 @@ public class DisplayPanel extends JPanel {
         * EFFECTS: when key down is pressed, it takes the current values from the renderer, 
         * and does a zoom on the image. When key up is pressed, it zooms the image out. 
         */
+        public double zoomScale;
+
+        public KeyboardEvent(double zoomScale) {
+            this.zoomScale = zoomScale;
+        }
         
         @Override
         public void keyPressed(KeyEvent e) {
@@ -193,6 +205,7 @@ public class DisplayPanel extends JPanel {
             Configuration newConfig = calculateZoomFactorConfig(zoomToggle);
             RenderFromKeyAndMouseAction newAction = new RenderFromKeyAndMouseAction(newConfig);
             newAction.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+            panelsEventMediator.manualInputsPanelSetFields(newConfig);
         }
         
         /*
@@ -209,7 +222,7 @@ public class DisplayPanel extends JPanel {
             double realEnd = currentConfig.getRealEnd();
             double imagStart = currentConfig.getImagStart();
             double imagEnd = currentConfig.getImagEnd();
-            double zoomScale = currentConfig.getZoomScale();
+            double zoomScale = this.zoomScale;
             
             if (zoomToggle == "ZOOM_OUT") {
                 zoomScale = 1 / zoomScale;
