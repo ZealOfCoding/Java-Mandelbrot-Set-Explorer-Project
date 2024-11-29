@@ -7,7 +7,6 @@ import java.awt.Font;
 
 import javax.swing.*;
 
-import ui.PanelsEventMediator;
 /*//////////////////////////////////////////////////////////////
  * DESIGN RECONSIDERATION:
  * - replace this with just a simple pop up error window?
@@ -19,7 +18,6 @@ import ui.PanelsEventMediator;
 
 public class MessagesPanel extends JPanel {
     private JTextArea messagesBox;
-    private PanelsEventMediator panelsEventMediator;
     
     /*
      * EFFECTS: Constructor nitializes elements, sets defaults, and adds elements. 
@@ -30,13 +28,6 @@ public class MessagesPanel extends JPanel {
         setDefaults();
         addElements();
 
-    }
-
-    /*
-     * EFFECTS: sets the mediator object for inter-class communication. 
-     */
-    public void setMediator(PanelsEventMediator panelsEventMediator) {
-        this.panelsEventMediator = panelsEventMediator;
     }
 
     /*

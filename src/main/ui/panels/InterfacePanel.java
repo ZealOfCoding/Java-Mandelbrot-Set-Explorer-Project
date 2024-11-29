@@ -1,6 +1,5 @@
 package ui.panels;
 
-import model.Renderer;
 import ui.PanelsEventMediator;
 
 import java.awt.BorderLayout;
@@ -8,9 +7,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.*;
-import java.awt.event.*;
-
-import model.ConfigurationList;
 
 public class InterfacePanel extends JPanel {
 
@@ -18,8 +14,6 @@ public class InterfacePanel extends JPanel {
     private MessagesPanel mp;
     private LoadSavePanel lsp;
     private ConfigurationsPanel cp;
-
-    private PanelsEventMediator panelsEventMediator;
 
     /* EFFECTS:
      * Constructs an InterfacePanel containing:
@@ -40,9 +34,9 @@ public class InterfacePanel extends JPanel {
      * EFFECTS: establishes the mediator object for inter-class communication. 
      */
     public void setMediator(PanelsEventMediator panelsEventMediator) {
-        this.panelsEventMediator = panelsEventMediator;
+        //this.panelsEventMediator = panelsEventMediator;
         mip.setMediator(panelsEventMediator);
-        mp.setMediator(panelsEventMediator);
+        //mp.setMediator(panelsEventMediator);
         lsp.setMediator(panelsEventMediator);
         cp.setMediator(panelsEventMediator);
     }
@@ -76,18 +70,34 @@ public class InterfacePanel extends JPanel {
         add(cp, BorderLayout.CENTER);
     }
 
+    /*
+     * EFEFCTS: returns getManualInputsPanel(). Used to instantiate an instance of 
+     *  PanelsEventMediator in GuiMandelbrotSetViewerApp.
+     */
     public ManualInputsPanel getManualInputsPanel() {
         return mip;
     }
 
+    /*
+     * EFEFCTS: returns getMessagesPanel(). Used to instantiate an instance of 
+     *  PanelsEventMediator in GuiMandelbrotSetViewerApp.
+     */
     public MessagesPanel getMessagesPanel() {
         return mp;
     }
 
+    /*
+     * EFEFCTS: returns getLoadSavePanel(). Used to instantiate an instance of 
+     *  PanelsEventMediator in GuiMandelbrotSetViewerApp.
+     */
     public LoadSavePanel getLoadSavePanel() {
         return lsp;
     } 
 
+    /*
+     * EFEFCTS: returns getConfigurationsPanel(). Used to instantiate an instance of 
+     *  PanelsEventMediator in GuiMandelbrotSetViewerApp.
+     */
     public ConfigurationsPanel getConfigurationsPanel() {
         return cp;
     }

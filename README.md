@@ -122,4 +122,14 @@ ________________________________________________________________________________
     END OF LOGGED EVENTS
     --------------------------------
 
+# Phase 4: Task 3
+## Ways that Project Could Be Improved
 
+    1. The tasks that each panel does could be redone to be more specific. ManualInputsPanel is currently handling the generate button, setting the zoom scale, and providing the user with information pop ups. I could put the generate button, information pop ups, and setting zoom into their own panels. 
+    A similar concern applies for ConfigurationPanel. the ScrollPane of configurations and the buttons & configuration name entry could be seperated into their own panels. 
+
+    2. A different design choice to replace the mediator. Although it makes communication between the classes simpler, the mediator class itself can get a bit messy with dozens of calling methods. 
+
+    3. Improving flexibility to add new changes. Other changes of interest would be to add color rendering. Some changes would have to be made to the math logic that renders the set. It also would require redesigning how the set saves the data, as it's only being saved as a boolean array. That doesn't give much flexiblity to save color values. 
+
+    4. Using the Singleton Pattern for my ConfigurationList class, since I only ever want one instance of the class that always is consistently used among all the other classes. It would simplify the code, decreasing clutter. 

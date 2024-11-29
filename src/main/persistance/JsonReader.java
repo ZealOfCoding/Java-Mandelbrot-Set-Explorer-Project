@@ -25,7 +25,6 @@ public class JsonReader {
    
     private String fileLocation;
     private static final String WORKSPACE_NAME = "workspaceConfigurations";
-    //TODO: make the workspace default name a parameter?
 
     /*
      * EFFECTS: constructs a reader that reads a json file from fileLocation

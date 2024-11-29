@@ -32,11 +32,11 @@ public class Renderer extends Configuration {
     /*
      * EFFECTS: default render, renders as soon as program is first open.
      * 
-     * This is now redundant.
+     * This is now redundant for the most part.
      */
     public Renderer() {
-        int height = 800;//TODO: remember to change this back to something appropriate like 600 in final phase
-        int width = 800;//TODO: remember to change this back to something appropriate like 900 in final phase
+        int height = 800;
+        int width = 800;
 
         this.configName = "Default";//irrelevant default...
         this.iteration = 1000;
@@ -64,7 +64,8 @@ public class Renderer extends Configuration {
      *   then that point is not in the set, and is set to false. If it 
      *   stays under "infinity", that point is in the set, and is set to 
      *   true.
-     *
+     * 
+     *  Also makes an event log of what configuration was rendered based on name.
      *
      *   Significant help of math from the following video source:
      *   https://www.youtube.com/watch?v=QUfFcg0c-9E&list=PLmGXvJnxPKXkUFS6yTp0zEyH1QFjbgjHY&index=2

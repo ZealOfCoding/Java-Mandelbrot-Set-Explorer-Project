@@ -17,7 +17,6 @@ public class Configuration {
     protected double zoomScale; // TODO: i'll probably depricate this...
     
     /* 
-     * REQUIRES: configName has non-zero length
      * EFFECTS: sets the following parameters.
      */
     public Configuration(String configName,
@@ -48,6 +47,9 @@ public class Configuration {
 
     }
 
+    /*
+     * EFFECTS: sets the configuration name
+     */
     public void setConfigName(String configName) {
         this.configName = configName;
     }

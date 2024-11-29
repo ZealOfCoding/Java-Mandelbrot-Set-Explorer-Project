@@ -195,11 +195,17 @@ public class ConfigurationsPanel extends JPanel {
      */
     private class AddConfigurationAction extends AbstractAction {
 
+        /*
+         * EFFECTS: listens for event, and calls addConfiguration.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             addConfiguration();
         }
 
+        /*
+         * EFFECTS: adds a configuration to the ConfigurationList
+         */
         private void addConfiguration() {
             /*
              * Something to do later:
@@ -250,11 +256,18 @@ public class ConfigurationsPanel extends JPanel {
      */
     private class DeleteConfigurationAction extends AbstractAction {
 
+        /*
+         * EFFECTS: listens for event, and calls deleteConfigurationByName().
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             deleteConfigurationByName();
         }
 
+        /*
+         * EFFECTS: deletes a configruation from the scrollpane based on the text
+         *  that is in the configName field and updates MeessagesPanel.
+         */
         private void deleteConfigurationByName() {
             String buttonText = configName.getText();
 
@@ -285,6 +298,10 @@ public class ConfigurationsPanel extends JPanel {
      */
     private class ConfigurationButtonAction extends AbstractAction {
 
+        /*
+         * EFFECTS: Listens for event, gets the source of the button that's calling, and 
+         * calls loadConfigurationIntoManualInputPanelFields();
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             /* 
@@ -301,6 +318,10 @@ public class ConfigurationsPanel extends JPanel {
             loadConfigurationIntoManualInputPanelFields(buttonText);
         }
 
+        /*
+         * EFEFCTS: takes the button name, and loads the corresponding configuraiton from ConfigurationList 
+         * into the fields of the ManualInputsPanel by calling a method in the class through panelsEventMediator.
+         */
         private void loadConfigurationIntoManualInputPanelFields(String buttonText) {
 
             try {
@@ -319,6 +340,9 @@ public class ConfigurationsPanel extends JPanel {
      */
     private class DefaultButtonAction extends AbstractAction {
 
+        /*
+         * EFFECTS: listens for event, and sets the parameters in ManualInputsPanels to the default values.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton buttonSource = (JButton) e.getSource();
@@ -326,11 +350,5 @@ public class ConfigurationsPanel extends JPanel {
 
             panelsEventMediator.manualInputsPanelSetFieldDefaults();
         }
-
     }
-
-    //TODO: add new config button, take in name parameter, current config values in ManualInputsPanel
-
-    //TODO: add click config to load a config in ManualInputsPanel
-    //TODO: add a delete selected button config 
 }

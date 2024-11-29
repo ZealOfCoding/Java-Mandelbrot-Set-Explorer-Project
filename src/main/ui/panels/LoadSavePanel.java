@@ -1,9 +1,9 @@
 package ui.panels;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -43,54 +43,58 @@ public class LoadSavePanel extends JPanel {
         this.panelsEventMediator = panelsEventMediator;
     }
 
+    /*
+     * EFEFCTS: initializes the loadWorkspace and saveWorkspace buttons.
+     */
     private void initializeElements() {
         loadWorkspace = new JButton("Load Saved Workspace");
         saveWorkspace = new JButton("Save Current Workspace");
     }
     
+    /*
+     * EFEFCTS: sets the defaults for LoadSavePanel
+     */
     private void setDefaults() {
         setBackground(Color.GREEN);
         setPreferredSize(new Dimension(400, 38));
     }
 
+    /*
+     * EFEFCTS: adds event handlers for loadWorkspace and saveWorkspace
+     */
     private void addEventHandlers() {
         loadWorkspace.addActionListener(new LoadWorkspaceAction());
         saveWorkspace.addActionListener(new SaveWorkspaceAction());
     }
 
+    /*
+     * EFEFCTS: adds the loadWorkspace and saveWorkspace buttons to the panel.
+     */
     private void addElements() {
         add(loadWorkspace);
         add(saveWorkspace);
     }
 
-    //reads from the workroom.json file.
+    //reads from the workroom.json file and updates scrollpane in ConfigurationsPanel.
     private class LoadWorkspaceAction extends AbstractAction {
         
+        /*
+        * EFEFCTS: listens for an event, calls JsonReader, calls it to read the saved configurationList
+                   the workroom.json file, and updates the scrollpane in ConfigurationsPanel.
+        */
         @Override
         public void actionPerformed(ActionEvent e) {
             JsonReader jsonReader = new JsonReader(JSON_STORE);
-            try {
-                /*
-                 * How to load the workspace from the workroom.json file:
-                 * 
-                 * - get the ConfigurationList from the jsonReader.read() method
-                 * - 
-                 */
 
+            try {
                 ConfigurationList thisConfigList = jsonReader.read();
                 panelsEventMediator.setConfigList(thisConfigList);
-                ConfigurationList tempDebugCheck = panelsEventMediator.getConfigList();
                 panelsEventMediator.configurationsPanelSetUpdateConfigButtons();
 
                 String eventMessage = "Loaded workspace from " + JSON_STORE;
                 System.out.println(eventMessage);
                 panelsEventMediator.messagesPanelUpdate(eventMessage);
 
-                /*
-                 * TO DO: call ConfigurationsPanel, and make a method there that 
-                 * looks through all configurations that have now been added to the 
-                 * configurationList, and add a button for each config.
-                 */
             } catch (IOException x) {
                 String errorMessage = "Error: Unable to read from file: " + JSON_STORE;
                 System.out.println(errorMessage);
@@ -100,8 +104,13 @@ public class LoadSavePanel extends JPanel {
         }
     }
 
+    //saves the configurations to workroom.json
     private class SaveWorkspaceAction extends AbstractAction {
 
+        /*
+        * EFEFCTS: listens for events, and calls JsonWriter to write the configurations currently in 
+                   ConfigurationsList to the workroom.json file.
+        */
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -122,7 +131,4 @@ public class LoadSavePanel extends JPanel {
             }
         }
     }
-
-    //TODO: add LoadingHandler...
-    //TODO: add SavingHandler
 }

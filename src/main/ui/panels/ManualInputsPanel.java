@@ -7,12 +7,13 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import model.Configuration;
 import ui.PanelsEventMediator;
 
+/*
+ * ManualInputsPanel handles all of the manual input fields for how to render the set. 
+ * Also handles a field to set the zoom scale when zooming into the image by keyboard.
+ */
 public class ManualInputsPanel extends JPanel {
     private JPanel row1;
     private JPanel row2;
@@ -40,6 +41,9 @@ public class ManualInputsPanel extends JPanel {
 
     private PanelsEventMediator panelsEventMediator;
     
+    /*
+     * EFFECTS: makes a new ManualInputsPanel object, and initializes several elements.
+     */
     public ManualInputsPanel() {
         super();
         initializeElements();
@@ -50,12 +54,16 @@ public class ManualInputsPanel extends JPanel {
         addRowsToThis();
     }
 
+    /*
+     * EFFECTS: sets the mediator object for inter-class communication. 
+     */
     public void setMediator(PanelsEventMediator panelsEventMediator) {
         this.panelsEventMediator = panelsEventMediator;
     }
 
     /*
-     * EFFECTS: initializes all the new elements
+     * EFFECTS: initializes each row, that organizes the JPanel into 8 rows, including all the fields, 
+     * and a button.
      */
     private void initializeElements() {
         row1 = new JPanel();
@@ -76,10 +84,11 @@ public class ManualInputsPanel extends JPanel {
         imagStart = new JTextField("-1");
         imagEnd = new JTextField("1");
 
-        zoomScale = new JTextField("2");
+        zoomScale = new JTextField("10");
         setZoom = new JButton("SET ZOOM");
     }
 
+    //testing purposes only to distinguish each panel from each other visually
     private void tempSetBackgroundColorsOnlyForTesting() {
         row1.setBackground(Color.PINK);
         row2.setBackground(Color.ORANGE);
@@ -123,11 +132,12 @@ public class ManualInputsPanel extends JPanel {
         realEnd.setText("0.5");
         imagStart.setText("-1");
         imagEnd.setText("1");
-        zoomScale.setText("2");
+        zoomScale.setText("10");
     }
     
     /*
-     * EFFECTS: adds event handlers to each element that generates an event.
+     * EFFECTS: adds event handlers for every button that 
+     * generates an event.
      */
     private void addEventHandlers() {
         generate.addActionListener(new GenerateAction());
@@ -167,7 +177,7 @@ public class ManualInputsPanel extends JPanel {
     }
    
     /*
-     * EFFECTS: adds the rows to this
+     * EFFECTS: adds the rows to ManualInputsPanel
      */
     private void addRowsToThis() {
         add(row1);
@@ -180,33 +190,52 @@ public class ManualInputsPanel extends JPanel {
         add(row8);
     }
 
+    // The parsing code is repetitive. I can just have one type of parsing method for each data type. 
+    //One for integer, one for double.
 
-    //IDEA: add a bunch of methods that parse the fields from the JTextFields for each one of them....
+    /*
+     * EFFECTS: parses a string to an integer.
+     */
     private int parsedIterationValue(String iteration) {
         int iterationValue = Integer.parseInt(iteration);
         return iterationValue;
     }
 
+    /*
+     * EFFECTS: parses a string to a double.
+     */
     private double parsedRealStartValue(String realStart) {
         double realStartValue = Double.parseDouble(realStart);
         return realStartValue;
     }
 
+    /*
+     * EFFECTS: parses a string to a double.
+     */
     private double parsedRealEndValue(String realEnd) {
         double realEndValue = Double.parseDouble(realEnd);
         return realEndValue;
     }
 
+    /*
+     * EFFECTS: parses a string to a double.
+     */
     private double parsedImagStartValue(String imagStart) {
         double imagStartValue = Double.parseDouble(imagStart);
         return imagStartValue;
     }
 
+    /*
+     * EFFECTS: parses a string to a double.
+     */
     private double parsedImagEndValue(String imagEnd) {
         double imagEndValue = Double.parseDouble(imagEnd);
         return imagEndValue;
     }
 
+    /*
+     * EFFECTS: parses a string to a double.
+     */
     private double parsedZoomValue(String zoomScale) {
         double zoomScaleValue = Double.parseDouble(zoomScale);
         return zoomScaleValue;
@@ -216,7 +245,8 @@ public class ManualInputsPanel extends JPanel {
      * EFFECTS: makes a new Configuration object from the text values in the JTextFields.
      */
     private Configuration makeConfigurationObject() {
-        Configuration newConfig = new Configuration(currentConfigName,                                                   parsedIterationValue(iteration.getText()), 
+        Configuration newConfig = new Configuration(currentConfigName,
+                                                    parsedIterationValue(iteration.getText()), 
                                                     panelsEventMediator.getDisplayWidth(),
                                                     panelsEventMediator.getDisplayHeight(), 
                                                     parsedRealStartValue(realStart.getText()), 
@@ -228,15 +258,17 @@ public class ManualInputsPanel extends JPanel {
         return newConfig;
     }
 
+    /*
+     * EFFECTS: calls make makeConfigurationObject()
+     */
     public Configuration getFields() {
         return makeConfigurationObject();
     }
 
+    /*
+     * EFFECTS: sets the fields based on config
+     */
     public void setFields(Configuration config) {
-        //TODO: Figure out why there is a nullpointer issue here...
-        //DEBUGGER!!!
-        //Potential issue: I'm not adding the configuration to the ConfigurationList properly,
-        // which is why i'm not getting a configuration with anything in it?
         iteration.setText(Integer.toString(config.getIteration()));
         realStart.setText(Double.toString(config.getRealStart()));
         realEnd.setText(Double.toString(config.getRealEnd()));
@@ -259,6 +291,9 @@ public class ManualInputsPanel extends JPanel {
     private class GenerateAction extends AbstractAction {
 
 
+        /*
+         * EFFECTS: listens for event, and generates an image based on configuration from makeConfigurationObect()
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -287,6 +322,10 @@ public class ManualInputsPanel extends JPanel {
     }
 
 
+
+    /*
+     * EFFECTS: makes a pop up window that shows some info and instructions about the ManualInputsPanel
+     */
     private class InfoQuestionAction extends AbstractAction {
 
         @Override
@@ -306,11 +345,15 @@ public class ManualInputsPanel extends JPanel {
      */
     private class UpdateZoomAction extends AbstractAction {
 
+        /*
+         * EFFECTS: listens for event, and updates the zoom scale used in DisplayPanel
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             //TODO: update the ZoomScale value in the Renderer to whatever
             //value the zoomScale is.
             double zoomScaleValue = 0;
+            System.out.println("Update zoom action called!");
             try {
                 zoomScaleValue = parsedZoomValue(zoomScale.getText());
             } catch (NumberFormatException x) {

@@ -37,19 +37,15 @@ public class DisplayPanel extends JPanel {
         super();
         setDefaults();
         setFocusable(true);
-        //requestFocusInWindow();
 
         addKeyListener(new KeyboardEvent(zoomScale));
-
-        //System.out.println("Is the DisplayPanel even focusable?: " + isFocusable());
-        //System.out.println("How likely is this window focusable?: " + requestFocusInWindow());
 
         requestFocusInWindow();
 
         //allows the DisplayPanel to have focus when the mouse is in the DisplayPanel, and loose it when
         //the mouse is outside the DisplayPanel. 
-
         addMouseListener(new MouseInPanelEvent());
+
         mouseCoords = new MouseMotionEvent();
         addMouseMotionListener(mouseCoords);
     }
@@ -75,7 +71,7 @@ public class DisplayPanel extends JPanel {
     private void setDefaults() {
         setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         setBackground(Color.LIGHT_GRAY);
-        zoomScale = 2;
+        zoomScale = 10;
     }
 
     public void setZoom(double zoomScale) {
@@ -139,28 +135,31 @@ public class DisplayPanel extends JPanel {
      * 
      * When the key up arrow is pressed, the zoomToggle is set to true, and it's passed to the renderAction() method. 
      * When the key down arrow is pressed, zoomToggle is set to false, and passed to renderAction() method.
+     * 
+     * In other words, when key down is pressed, it takes the current values from the renderer, 
+     * and does a zoom on the image. When key up is pressed, it zooms the image out. 
      */
     private class KeyboardEvent implements KeyListener {
-        /*
-        * EFFECTS: when key down is pressed, it takes the current values from the renderer, 
-        * and does a zoom on the image. When key up is pressed, it zooms the image out. 
-        */
-        public double zoomScale;
+ 
+        private double zoomScale;
 
+        /*
+         * EFEFCTS: sets the zoomScale value.
+         */
         public KeyboardEvent(double zoomScale) {
             this.zoomScale = zoomScale;
         }
         
+        //redundant, possible future use case
         @Override
         public void keyPressed(KeyEvent e) {
-            //TODO: comment out this print statement about the key being pressed
-            System.out.println("Key pressed activated");
+            //System.out.println("Key pressed activated");
         }
         
+        //redundant, possible future use case
         @Override
         public void keyTyped(KeyEvent e) {
-            //TODO: comment out this print statement about a key being typed
-            System.out.println("Key typed activated");
+            //System.out.println("Key typed activated");
         }
         
         /*
@@ -177,13 +176,13 @@ public class DisplayPanel extends JPanel {
             switch (keyCode) {
                 case KeyEvent.VK_UP:
                     //TODO: comment out this print statement about the key up press
-                    System.out.println("Key UP pressed!");
+                    //System.out.println("Key UP pressed!");
                     zoomToggle = "ZOOM_IN";
                     renderAction(zoomToggle);
                     break;
                 case KeyEvent.VK_DOWN:
                     //TODO: comment out this print statement about the key down press
-                    System.out.println("Key DOWN pressed!");
+                    //System.out.println("Key DOWN pressed!");
                     zoomToggle = "ZOOM_OUT";
                     renderAction(zoomToggle);
                     break;
@@ -261,15 +260,20 @@ public class DisplayPanel extends JPanel {
         private int xcoord;
         private int ycoord;
         
+        /*
+         * EFFECTS: listens for mouse movements, and updates the xcoord and ycoord 
+         *  to what the coordinates of the mouse are.
+         */
         @Override
         public void mouseMoved(MouseEvent e) {
-            System.out.println("MOUSE MOVED");
+            // System.out.println("MOUSE MOVED");
             xcoord = e.getX();
             ycoord = e.getY();
-            System.out.println("MOUSE X CORD: " + xcoord);
-            System.out.println("MOUSE Y CORD: " + ycoord);
+            // System.out.println("MOUSE X CORD: " + xcoord);
+            // System.out.println("MOUSE Y CORD: " + ycoord);
         }
         
+
         public int getX() {
             return xcoord;
         }
@@ -288,19 +292,15 @@ public class DisplayPanel extends JPanel {
         //EFFECTS: takes in a Configuration object.
         public RenderFromKeyAndMouseAction(Configuration newConfig) {
             this.newConfig = newConfig;
-            System.out.println("RenderFromKeyAndMouseAction constructor called");
-            /*
-             * TO DO: figure out why the image isn't zooming in.....
-             * 1. Check if the newConfig values are actually zoomed in. If not, 
-             *    check that my zooming in math is right or not
-             *    
-             */
         }
 
+        /*
+         * EFEFCTS: listens for event, and renders the image using a worker that runs on a different thread,
+         *  using newConfig.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("actionPerformed() method called");
-            //generate(newConfig);
+
             try {
                 panelsEventMediator.messagesPanelUpdate("Rendering...");
                 SwingWorker<Void, Void> worker = new SwingWorker<>() {
@@ -336,16 +336,14 @@ public class DisplayPanel extends JPanel {
         @Override
         public void mouseEntered(MouseEvent e) {
             requestFocusInWindow();
-            //TODO: Comment out this print statement about the mouse event entering
-            System.out.println("DisplayPanel GAINED FOCUS");
+            // System.out.println("DisplayPanel GAINED FOCUS");
         }
 
         // EFFECTS: returns focus to main panel when the mouse moves out of the DisplayPanel
         @Override
         public void mouseExited(MouseEvent e) {
             getRootPane().requestFocusInWindow();
-            //TODO: Comment out this print statement about the mouse event exiting
-            System.out.println("DisplayPanel LOST FOCUS");
+            // System.out.println("DisplayPanel LOST FOCUS");
         }
     }
 }
