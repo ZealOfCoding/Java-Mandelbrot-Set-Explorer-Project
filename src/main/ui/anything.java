@@ -17,14 +17,14 @@ import ui.panels.InterfacePanel;
  * Runs the GUIMandelbrotSetViewerApp. Is used like a mediator between 
  * the various classes. 
  */
-public class GuiMandelbrotSetViewerApp extends JFrame {
+public class anything extends JFrame {
     private InterfacePanel ip;
     private DisplayPanel dp;
     private ConfigurationList configList;
     
     private PanelsEventMediator panelsEventMediator;
 
-    public GuiMandelbrotSetViewerApp() {
+    public anything() {
         super("Mandelbrot Set Viewer App");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
