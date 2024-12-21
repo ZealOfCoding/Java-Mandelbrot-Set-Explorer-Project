@@ -9,6 +9,6 @@ public class Main {
         /*
          * Make a whole new GUIMandelbrotSetViewerApp() class.
          */
-        new anything();
+        new GuiMandelbrotSetViewerApp();
     }
 }
