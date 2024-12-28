@@ -55,7 +55,7 @@ public class LoadSavePanel extends JPanel {
      * EFEFCTS: sets the defaults for LoadSavePanel
      */
     private void setDefaults() {
-        setBackground(Color.GREEN);
+        setBackground(Color.cyan);
         setPreferredSize(new Dimension(400, 38));
     }
 

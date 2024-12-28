@@ -1,79 +1,11 @@
-{"workspaceConfigurations": [
-    {
-        "configName": "1111",
-        "imagStart": -1,
-        "imagEnd": 1,
-        "zoomScale": 2,
-        "realEnd": 0.5,
-        "renderWidth": 800,
-        "renderHeight": 800,
-        "iteration": 1111,
-        "realStart": -1.5
-    },
-    {
-        "configName": "2222",
-        "imagStart": -1,
-        "imagEnd": 1,
-        "zoomScale": 2,
-        "realEnd": 0.5,
-        "renderWidth": 800,
-        "renderHeight": 800,
-        "iteration": 2222,
-        "realStart": -1.5
-    },
-    {
-        "configName": "3333",
-        "imagStart": -1,
-        "imagEnd": 1,
-        "zoomScale": 2,
-        "realEnd": 0.5,
-        "renderWidth": 800,
-        "renderHeight": 800,
-        "iteration": 3333,
-        "realStart": -1.5
-    },
-    {
-        "configName": "4444",
-        "imagStart": -1,
-        "imagEnd": 1,
-        "zoomScale": 2,
-        "realEnd": 0.5,
-        "renderWidth": 800,
-        "renderHeight": 800,
-        "iteration": 4444,
-        "realStart": -1.5
-    },
-    {
-        "configName": "6969",
-        "imagStart": -1,
-        "imagEnd": 1,
-        "zoomScale": 2,
-        "realEnd": 0.5,
-        "renderWidth": 800,
-        "renderHeight": 800,
-        "iteration": 6969,
-        "realStart": -1.5
-    },
-    {
-        "configName": "AHHHHH",
-        "imagStart": -1,
-        "imagEnd": 1,
-        "zoomScale": 2,
-        "realEnd": 0.5,
-        "renderWidth": 800,
-        "renderHeight": 800,
-        "iteration": 1111111111,
-        "realStart": -1.5
-    },
-    {
-        "configName": "bla",
-        "imagStart": -1,
-        "imagEnd": 1,
-        "zoomScale": 2,
-        "realEnd": 0.5,
-        "renderWidth": 800,
-        "renderHeight": 800,
-        "iteration": 2374829,
-        "realStart": -1.5
-    }
-]}
+{"workspaceConfigurations": [{
+    "configName": "weird thingy",
+    "imagStart": -0.215253868379526,
+    "imagEnd": -0.215248611036333,
+    "zoomScale": 1.2,
+    "realEnd": -0.870662632059687,
+    "renderWidth": 800,
+    "renderHeight": 800,
+    "iteration": 1000,
+    "realStart": -0.87066788940288
+}]}

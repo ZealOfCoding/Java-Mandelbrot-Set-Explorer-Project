@@ -55,8 +55,10 @@ public class InterfacePanel extends JPanel {
      * EFFECTS: sets defaults of this panel.
      */
     private void setDefaults() {
+        setBackground(Color.BLACK);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         setPreferredSize(new Dimension(400, 800));
-        setBackground(Color.BLUE);
+
         //setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 

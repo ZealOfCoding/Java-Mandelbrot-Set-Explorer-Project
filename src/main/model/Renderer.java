@@ -9,8 +9,14 @@ package model;
  * will be printed. 
  */
 public class Renderer extends Configuration {
-    boolean[][] setData;//remember: the indexes going towards the right are higher order dimensions
-
+    /*
+     * Possible revisions for how to store the color values:
+     * - int, with hex values
+     * - Color objects
+     * 
+     */
+    //boolean[][] setData;//remember: the indexes going towards the right are higher order dimensions
+    int[][] setData;
     /*
      * REQUIRES: Configuration object
      * EFFECTS: sets the parameters of the Renderer
@@ -26,7 +32,8 @@ public class Renderer extends Configuration {
         this.imagStart = config.getImagStart();
         this.imagEnd = config.getImagEnd();
         this.zoomScale = config.getZoomScale();
-        setData = new boolean[config.renderHeight][config.renderWidth];
+        //setData = new boolean[config.renderHeight][config.renderWidth];
+        setData = new int[config.renderHeight][config.renderWidth];
     }
 
     /*
@@ -47,7 +54,8 @@ public class Renderer extends Configuration {
         this.imagStart = -1;
         this.imagEnd = 1;
         this.zoomScale = 1;//irrelevant default
-        setData = new boolean[height][width];
+        //setData = new boolean[height][width];
+        setData = new int[height][width];
     }
 
     /*
@@ -100,6 +108,10 @@ public class Renderer extends Configuration {
                  * to a color value... Or just do a simple greyscale mapping...
                  */
                 //If the iteration count stays under the iteration limit, the point is in the set.
+
+                /*
+                 * I now want setData to contain a 2D boolean array of color values. 
+                 */
                 setData[h][w] = isInSet(realC, imagC, realZ, imagZ);
             }
         }
@@ -110,12 +122,19 @@ public class Renderer extends Configuration {
 
     /* 
      * REQUIRES: realC, imagC, realZ, imagZ
-     * EFFECTS: checks whether the given point on the complex plane is in the set.
+     * OLD EFFECTS: checks whether the given point on the complex plane is in the set. If it is, it 
+     * returns true. If not, it returns false. In DisplayPanel, false corresponds with white, true
+     * corresponds with black.
+     * 
+     * UPDATED EFFECTS: assigns a color for a given point on the complex plane for the set, 
+     * based on a gradient coloring in black and white. This will show how fast a given point 
+     * goes towards infinity. 
+     * 
      * 
      * Future improvement: make the function return an integer; the number of times it took
      * for the point to reach the iteration limit. 
      */
-    private boolean isInSet(double realC, double imagC, double realZ, double imagZ) {
+    private int isInSet(double realC, double imagC, double realZ, double imagZ) {
         int iter = 0;
 
         while (iter < iteration) {
@@ -138,19 +157,76 @@ public class Renderer extends Configuration {
              * tracked, and a color map could be applied to the number of iterations a given point took.
              */
             if (((realZ * realZ) + (imagZ * imagZ)) > 4) {
-                return false;
+                break;
             }
             iter++;
         }
-        //if the loop finishes after iteration times, then the point is considered in the set.
-        return true;
+
+        return mapToNormalized(iter, iteration, 1.1);
     }
+
+    /*
+     * EFFECTS: maps with a logarithmic coloring scheme
+     */
+    private int mapIterationToColor(int iter, int maxIter, double logBase) { 
+        if (iter >= maxIter) {
+            return 0xFF000000;
+        } else {
+            double logIter = Math.log(iter + 1);// / Math.log(logBase);
+            double logMaxIter = Math.log(maxIter + 1);// / Math.log(logBase);
+            double scale = logIter / logMaxIter;
+
+            scale = Math.pow(scale, logBase);
+            //Scale the value to the range 0-255 for greyscale color
+            int greyValue = (int) (scale * 255);
+            int color = (0xFF << 24) | (greyValue << 16) | (greyValue << 8) | greyValue;
+
+            return color;
+        }
+    }
+
+    /*
+     * EFFECTS: maps with an exponential scaling color scheme
+     */
+    private int mapToExponential(int iter, int maxIter, double exponent) {
+        if (iter >= maxIter) {
+            // Point is in the Mandelbrot set (use black color)
+            return 0xFF000000; // Alpha (FF) + Red (00) + Green (00) + Blue (00)
+        } else {
+            // Use exponential scaling to map iterations to greyscale color
+            double scale = Math.exp(-exponent * iter / maxIter);
+            int greyValue = (int) ((1 - scale) * 255);
+            int color = (0xFF << 24) | (greyValue << 16) | (greyValue << 8) | greyValue;
+    
+            return color; // Return the ARGB color value
+        }
+    }
+
+    /*
+     * EFFECTS: maps with a normalized scaling factor
+     */
+    private int mapToNormalized(int iter, int maxIter, double smoothFactor) {
+        if (iter >= maxIter) {
+            // Point is in the Mandelbrot set (use black color)
+            return 0xFF000000; // Alpha (FF) + Red (00) + Green (00) + Blue (00)
+        } else {
+            // Smooth the iteration count
+            double mu = iter + 1 - Math.log(Math.log(smoothFactor)) / Math.log(2.0);
+            double scale = mu / maxIter;
+            int greyValue = (int) (scale * 255);
+            int color = (0xFF << 24) | (greyValue << 16) | (greyValue << 8) | greyValue;
+    
+            return color; // Return the ARGB color value
+        }
+    }
+    
+    
 
     /*
      * REQUIRES: setData
      * EFFECTS: returns the setData pointer
      */
-    public boolean[][] getSet() {
+    public int[][] getSet() {
         return setData;
     }
 

@@ -35,7 +35,7 @@ public class ManualInputsPanel extends JPanel {
     protected JTextField imagEnd;
 
     protected JTextField zoomScale;
-    protected JButton setZoom;
+    //protected JButton setZoomButton;
 
     private String currentConfigName;
 
@@ -47,7 +47,7 @@ public class ManualInputsPanel extends JPanel {
     public ManualInputsPanel() {
         super();
         initializeElements();
-        tempSetBackgroundColorsOnlyForTesting();
+        //tempSetBackgroundColorsOnlyForTesting();
         setDefaults();
         addEventHandlers();
         addElementsToRows();
@@ -85,7 +85,7 @@ public class ManualInputsPanel extends JPanel {
         imagEnd = new JTextField("1");
 
         zoomScale = new JTextField("10");
-        setZoom = new JButton("SET ZOOM");
+        //setZoomButton = new JButton("SET ZOOM");
     }
 
     //testing purposes only to distinguish each panel from each other visually
@@ -105,25 +105,50 @@ public class ManualInputsPanel extends JPanel {
      * EFFECTS: sets the default configurations for the ManualInputsPanel
      */
     private void setDefaults() {
-        setBackground(Color.CYAN);
+        setBackground(Color.cyan);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setSize(new Dimension(400, 200));
 
+        row1.setBackground(Color.cyan);
+        row1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         row1.setPreferredSize(new Dimension(400, 35));
+
+        row2.setBackground(Color.cyan);
+        row2.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         row2.setPreferredSize(new Dimension(400, 30));
+
+        row3.setBackground(Color.cyan);
+        row3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         row3.setPreferredSize(new Dimension(400, 30));
+
+        row4.setBackground(Color.cyan);
+        row4.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         row4.setPreferredSize(new Dimension(400, 30));
+
+        row5.setBackground(Color.cyan);
+        row5.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         row5.setPreferredSize(new Dimension(400, 30));
+
+        row6.setBackground(Color.cyan);
+        row6.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         row6.setPreferredSize(new Dimension(400, 30));
+
+        row7.setBackground(Color.cyan);
+        // row7.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         row7.setPreferredSize(new Dimension(400, 22));
+
+        row8.setBackground(Color.cyan);
+        // row8.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         row8.setPreferredSize(new Dimension(400, 35));
 
         iteration.setColumns(25);
         realStart.setColumns(25);
         realEnd.setColumns(25);
         imagStart.setColumns(24);
-        imagEnd.setColumns(25);
+        imagEnd.setColumns(24);
         zoomScale.setColumns(10);
+
+
     }
 
     public void setFieldDefaults() {
@@ -142,7 +167,7 @@ public class ManualInputsPanel extends JPanel {
     private void addEventHandlers() {
         generate.addActionListener(new GenerateAction());
         infoQuestion.addActionListener(new InfoQuestionAction());
-        zoomScale.addActionListener(new UpdateZoomAction());
+        //.addActionListener(new UpdateZoomAction());
     }
 
     /*
@@ -173,7 +198,7 @@ public class ManualInputsPanel extends JPanel {
 
         row8.add(new JLabel("Zoom Scale(Decimal):"));
         row8.add(zoomScale);
-        row8.add(setZoom, BorderLayout.EAST);
+        //row8.add(setZoomButton, BorderLayout.EAST);
     }
    
     /*
@@ -274,7 +299,7 @@ public class ManualInputsPanel extends JPanel {
         realEnd.setText(Double.toString(config.getRealEnd()));
         imagStart.setText(Double.toString(config.getImagStart()));
         imagEnd.setText(Double.toString(config.getImagEnd()));
-        zoomScale.setText(Double.toString(config.getZoomScale()));
+        //zoomScale.setText(Double.toString(config.getZoomScale()));
         currentConfigName = config.getConfigName();
     }
 
@@ -342,6 +367,7 @@ public class ManualInputsPanel extends JPanel {
 
     /*
      * Updates the zoom scale when zooming by mouse & keyboard.
+     * This class is redundant and not necessary.
      */
     private class UpdateZoomAction extends AbstractAction {
 
@@ -352,15 +378,15 @@ public class ManualInputsPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             //TODO: update the ZoomScale value in the Renderer to whatever
             //value the zoomScale is.
-            double zoomScaleValue = 0;
-            System.out.println("Update zoom action called!");
-            try {
-                zoomScaleValue = parsedZoomValue(zoomScale.getText());
-            } catch (NumberFormatException x) {
-                panelsEventMediator.messagesPanelUpdate("An invalid zoomScale was entered.");
-            }
+            // double zoomScaleValue = 0;
+            // System.out.println("Update zoom action called!");
+            // try {
+            //     zoomScaleValue = parsedZoomValue(zoomScale.getText());
+            // } catch (NumberFormatException x) {
+            //     panelsEventMediator.messagesPanelUpdate("An invalid zoomScale was entered.");
+            // }
 
-            panelsEventMediator.displayPanelSetZoom(zoomScaleValue);
+            //panelsEventMediator.displayPanelSetZoom(zoomScaleValue);
 
             /*
              * TODO: verify that the code is actually zooming into the image...

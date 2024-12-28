@@ -318,12 +318,12 @@ public class MandelbrotSetViewerApp {
      * EFFECTS: displays the set, using the data from the rederObj in a 2D boolean array.
      * In Phase 1, I'm printing out the set using symbols. 
      */
-    private void displaySet(boolean[][] renderObj) {
+    private void displaySet(int[][] renderObj) {
 
         for (int h = 0; h < renderer.getHeight(); h++) {
             String currentRow = "";
             for (int w = 0; w < renderer.getWidth(); w++) {
-                if (renderObj[h][w]) {
+                if (renderObj[h][w] == 0x000000) {
                     currentRow = currentRow + "██";
                 } else {
                     currentRow = currentRow + " `";

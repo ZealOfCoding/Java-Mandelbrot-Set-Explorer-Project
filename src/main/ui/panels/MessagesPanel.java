@@ -41,9 +41,9 @@ public class MessagesPanel extends JPanel {
      * EFFECTS: sets defaults. 
      */
     private void setDefaults() {
-        setBackground(Color.ORANGE);
+        setBackground(Color.cyan);
         setPreferredSize(new Dimension(400, 75));
-        messagesBox.setBackground(Color.GRAY);
+        messagesBox.setBackground(Color.LIGHT_GRAY);
         messagesBox.setFont(new Font("Verdana", Font.PLAIN, 15));
         messagesBox.setPreferredSize(new Dimension(380, 65));
         messagesBox.setLineWrap(true);

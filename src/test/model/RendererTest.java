@@ -57,7 +57,7 @@ public class RendererTest {
         //NOTE: this test should fail as it is right now...
 
         renderObj.renderSet();
-        boolean[][] setTest = renderObj.getSet();
+        int[][] setTest = renderObj.getSet();
 
             //this set reference test has errors in it... Considering if it's worth making such a large test...
 
@@ -84,7 +84,7 @@ public class RendererTest {
     @Test
     void testGetSet(){
         renderObj.renderSet();
-        boolean[][] setPointer = renderObj.getSet();
+        int[][] setPointer = renderObj.getSet();
         for(int h = 0; h < renderObj.renderHeight; h++){
             for(int w = 0; w < renderObj.renderWidth; w++){
                 assertEquals(setReference[h][w], setPointer[h][w]);

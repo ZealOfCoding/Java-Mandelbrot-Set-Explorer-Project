@@ -99,23 +99,23 @@ public class ConfigurationsPanel extends JPanel {
      * EFFECTS: sets the defaults of the panel.
      */
     private void setDefaults() {
-        setBackground(Color.PINK);
+        setBackground(Color.cyan);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setSize(new Dimension(400, 500));
         //setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         configButtonListPanel.setLayout(new BoxLayout(configButtonListPanel, BoxLayout.Y_AXIS));
 
-        row1.setBackground(Color.RED);
-        row1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        row1.setBackground(Color.cyan);
+        row1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         row1.setPreferredSize(new Dimension(400, 300));
         
 
-        row2.setBackground(Color.YELLOW);
-        row2.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        row2.setBackground(Color.cyan);
+        row2.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         row2.setPreferredSize(new Dimension(400, 80));
         
-        row3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
-        row3.setBackground(Color.GREEN);
+        row3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        row3.setBackground(Color.cyan);
         row3.setPreferredSize(new Dimension(400, 40));
 
         configName.setPreferredSize(new Dimension(350, 30));

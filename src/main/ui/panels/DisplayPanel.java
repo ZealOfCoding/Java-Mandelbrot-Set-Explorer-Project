@@ -24,7 +24,7 @@ public class DisplayPanel extends JPanel {
 
     private Renderer renderer;
     private PanelsEventMediator panelsEventMediator;
-    private boolean[][] setData;
+    private int[][] setData;
     private BufferedImage image;
 
     private MouseMotionEvent mouseCoords;
@@ -74,9 +74,10 @@ public class DisplayPanel extends JPanel {
         zoomScale = 10;
     }
 
-    public void setZoom(double zoomScale) {
-        this.zoomScale = zoomScale;
-    }
+    // public void setZoom(double zoomScale) {
+    //     this.zoomScale = zoomScale;
+    //     System.out.println("The zoom was set in DisplayPanel!!!!");
+    // }
 
     /* REQUIRES: a valid Configuration object. 
      * EFFECTS: takes a configuration, and asks the render to generate the set, and calls displayData() to 
@@ -113,11 +114,7 @@ public class DisplayPanel extends JPanel {
         
         for (int x = 0; x < width; x++) { 
             for (int y = 0; y < height; y++) {  
-                int color = 0xFFFFFF;
-                if (setData[y][x]) {
-                    color = 0x000000;
-                }
-                image.setRGB(x, y, color); 
+                image.setRGB(x, y, setData[y][x]); 
             } 
         }
         updateUI();
@@ -171,6 +168,8 @@ public class DisplayPanel extends JPanel {
             
             System.out.println("Key released activated");
             
+            
+
             int keyCode = e.getKeyCode();
             String zoomToggle = "";
             switch (keyCode) {
@@ -221,13 +220,13 @@ public class DisplayPanel extends JPanel {
             double realEnd = currentConfig.getRealEnd();
             double imagStart = currentConfig.getImagStart();
             double imagEnd = currentConfig.getImagEnd();
-            double zoomScale = this.zoomScale;
+            double zoomScaleLocal = panelsEventMediator.manualInputsPanelGetConfiguration().getZoomScale();
             
-            if (zoomToggle == "ZOOM_OUT") {
-                zoomScale = 1 / zoomScale;
+            if (zoomToggle == "ZOOM_OUT") {//could it be this that's causing issues?
+                zoomScaleLocal = 1 / zoomScaleLocal;
             }
-            double newWidth = (realEnd - realStart) / zoomScale;
-            double newHeight = (imagEnd - imagStart) / zoomScale;
+            double newWidth = (realEnd - realStart) / zoomScaleLocal;
+            double newHeight = (imagEnd - imagStart) / zoomScaleLocal;
             
             double realMouse = realStart + (realEnd - realStart) * mouseCoords.getX() / currentConfig.getRenderWidth();
             double imagMouse = imagStart + (imagEnd - imagStart) * mouseCoords.getY() / currentConfig.getRenderHeight();

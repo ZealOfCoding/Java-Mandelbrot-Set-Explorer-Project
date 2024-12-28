@@ -144,7 +144,7 @@ public class PanelsEventMediator {
         cp.loadButtonsFromConfigList();
     }
 
-    public void displayPanelSetZoom(double zoomScale) {
-        dp.setZoom(zoomScale);
-    }
+    // public void displayPanelSetZoom(double zoomScale) {
+    //     dp.setZoom(zoomScale);
+    // }
 }
